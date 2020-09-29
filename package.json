@@ -1,0 +1,35 @@
+{
+    "name": "@colonise/test",
+    "version": "0.0.0",
+    "description": "TODO",
+    "main": "index.js",
+    "typings": "index.d.ts",
+    "files": [
+        "**/*.*"
+    ],
+    "scripts": {
+        "clean": "colonise-config clean",
+        "build": "colonise-config build",
+        "lint": "colonise-config lint",
+        "test": "colonise-config test",
+        "coverage": "colonise-config coverage",
+        "distribute": "colonise-config distribute"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Colonise/Test.git"
+    },
+    "keywords": [],
+    "author": "Patrick Stanford",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/Colonise/Test/issues"
+    },
+    "homepage": "https://github.com/Colonise/Test#readme",
+    "devDependencies": {
+        "@colonise/config": "latest"
+    },
+    "dependencies": {
+        "tslib": "latest"
+    }
+}

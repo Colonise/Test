@@ -1,0 +1,15 @@
+# Source
+source/
+
+# Build
+build/
+generated/
+
+# Test
+coverage/
+
+# Documentation
+documentation/
+
+# VSCode Settings
+.vscode/
