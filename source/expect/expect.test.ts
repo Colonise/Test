@@ -1,7 +1,7 @@
-import { testSuite, test } from '../test';
+import { testGroup, test } from '../test';
 import { expect } from './expect';
 
-testSuite('expect-chain', () => {
+testGroup('expect-chain', () => {
     // expect()
     expect(1).equals(1);
     expect(() => { }).returns();

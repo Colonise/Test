@@ -151,6 +151,18 @@
 
     expect(subject).is.not(expected, strict);
 
+    expect(subject).is.not.defined();
+
+    expect(subject).is.not.null();
+
+    expect(subject).is.not.undefined();
+
+    expect(subject).is.not.truthy();
+
+    expect(subject).is.not.falsey();
+
+    expect(subject).is.not.in(expected);
+
     expect(subject).is.not.a(expected);
 
     expect(subject).is.not.a.string();
@@ -180,6 +192,18 @@
     expect(subject).to.be(expected);
 
     expect(subject).to.be(expected, strict);
+
+    expect(subject).to.be.defined();
+
+    expect(subject).to.be.null();
+
+    expect(subject).to.be.undefined();
+
+    expect(subject).to.be.truthy();
+
+    expect(subject).to.be.falsey();
+
+    expect(subject).to.be.in(expected);
 
     expect(subject).to.be.a(expected);
 
@@ -260,6 +284,18 @@
     expect(subject).to.not.be(expected);
 
     expect(subject).to.not.be(expected, strict);
+
+    expect(subject).to.not.be.defined();
+
+    expect(subject).to.not.be.null();
+
+    expect(subject).to.not.be.undefined();
+
+    expect(subject).to.not.be.truthy();
+
+    expect(subject).to.not.be.falsey();
+
+    expect(subject).to.not.be.in(expected);
 
     expect(subject).to.not.be.a(expected);
 

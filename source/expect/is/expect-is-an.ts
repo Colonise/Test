@@ -1,37 +1,9 @@
-import { assertInstanceOf } from '@colonise/assert';
-import type { AssertionResult } from '@colonise/assert';
-import { assertTypeOf } from '@colonise/assert';
-import type { Constructor } from '@colonise/utilities';
+import type { AnChain } from '../an';
+import { createAnChain } from '../an';
 
-export interface ExpectIsAnChain<TSubject> {
-
-    /**
-     * @example expect(actual).is.an(expected)
-     *
-     * @param expected
-     */
-    <TExpected extends Constructor<TSubject>>(expected: TExpected): AssertionResult<TSubject, TSubject, TExpected>;
-
-    /**
-     * @example expect(actual).is.an.object()
-     */
-    // eslint-disable-next-line @typescript-eslint/ban-types
-    object(): AssertionResult<TSubject, TSubject, object>;
-}
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface ExpectIsAnChain<TSubject> extends AnChain<TSubject> { }
 
 export function createExpectIsAnChain<TSubject>(subject: TSubject): ExpectIsAnChain<TSubject> {
-    return Object.assign(
-        // eslint-disable-next-line id-length, prefer-arrow-callback
-        function an<TExpected extends Constructor<TSubject>>(
-            expected: TExpected
-        ): AssertionResult<TSubject, TSubject, TExpected> {
-            return assertInstanceOf(subject, expected);
-        },
-        {
-            // eslint-disable-next-line @typescript-eslint/ban-types
-            object(): AssertionResult<TSubject, TSubject, object> {
-                return assertTypeOf(subject, 'object');
-            }
-        }
-    );
+    return createAnChain(subject);
 }

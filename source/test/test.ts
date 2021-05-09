@@ -1,47 +1,94 @@
-import type { TestCase } from './test-case';
-import { TestRunner } from './test-runner';
-import { toDisplayValue } from '../utilities';
-import { TestSuite } from './test-suite';
+import { TestGroup } from './test-group';
+import { toDisplayString } from '@colonise/utilities';
 
-export class Test {
-    public static current?: Test;
+export type TestRunnerFunction<TTestCase = never> = (testCase: TTestCase) => void | Promise<void>;
 
-    public readonly name: string;
-    public readonly runner: () => void;
+export type TestFunction<TTestCase = never> = (
+    label: string,
+    testCases: TTestCase[],
+    runner: TestRunnerFunction<TTestCase>
+) => void | Promise<void>;
 
-    public readonly testCases: TestCase<unknown[]>[] = [];
+export class Test<TTestCase = never> {
+    public static current: Test | undefined = undefined;
 
-    public constructor(name: string, runner: () => void) {
-        this.name = name;
+    public readonly label: string;
+    public readonly testCases: TTestCase[];
+    public readonly runner: TestRunnerFunction<TTestCase>;
+
+    public constructor(
+        label: string,
+        testCases: TTestCase[],
+        runner: TestRunnerFunction<TTestCase>
+    ) {
+        this.label = label;
+        this.testCases = testCases;
         this.runner = runner;
     }
 
-    public run(): void {
-        Test.current = this;
+    public async run(): Promise<void> {
+        if (Test.current !== undefined) {
+            throw new Error(`Test '${Test.current.label}' already running.`);
+        }
+
+        Test.current = <Test><unknown>this;
 
         try {
-            console.log(`Test: ${this.name}`);
+            console.log(`Test: ${this.label}`);
 
-            this.runner();
+            for (const testCase of this.testCases) {
+                // eslint-disable-next-line no-await-in-loop
+                await this.runner(testCase);
+            }
         }
         catch (error: unknown) {
-            console.error(`Caught unexpected error while running a Test. ${toDisplayValue(error)}`);
+            console.error(`Caught unexpected error while running a Test. ${toDisplayString(error)}`);
         }
 
         Test.current = undefined;
     }
 }
 
+type TestArguments<TTestCase> =
+    | [
+        label: string,
+        runner: (testCase: TTestCase) => void
+    ]
+    | [
+        label: string,
+        testCases: TTestCase[],
+        runner: (testCase: TTestCase) => void
+    ];
+
 // eslint-disable-next-line @typescript-eslint/no-shadow
-export function test(name: string, runner: () => void): void {
-    // eslint-disable-next-line @typescript-eslint/no-shadow
-    const test = new Test(name, runner);
+export function test<TTestCase = never>(
+    label: string,
+    runner: (testCase: TTestCase) => void
+): void | Promise<void>;
+export function test<TTestCase = never>(
+    label: string,
+    testCases: TTestCase[],
+    runner: (testCase: TTestCase) => void
+): void | Promise<void>;
+export function test<TTestCase = never>(...typedArguments: TestArguments<TTestCase>): void | Promise<void> {
+    if (TestGroup.current !== undefined) {
+        // eslint-disable-next-line @typescript-eslint/no-magic-numbers
+        if (typedArguments.length === 2) {
+            const [
+                label,
+                runner
+            ] = typedArguments;
 
-    if (TestRunner.current) {
-        TestRunner.current.tests.push(test);
-    }
+            TestGroup.current.addTest(<Test><unknown>(new Test(label, [], runner)));
+        }
+        else {
+            const [
+                label,
+                testCases,
+                runner
+            ] = typedArguments;
 
-    if (TestSuite.current) {
-        TestSuite.current.tests.push(test);
+            TestGroup.current.addTest(<Test><unknown>(new Test(label, testCases, runner)));
+        }
     }
 }

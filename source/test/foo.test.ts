@@ -1,9 +1,8 @@
-import { testCase } from './test-case';
-import { test } from './test';
-import { testSuite } from './test-suite';
+import { testGroup } from './test-group';
 
-testSuite('testSuite1', () => {
-    test('test1', () => {
-        testCase('testCase1', []);
-    });
+testGroup('testGroup1', () => {
+    testGroup('testGroup1a', test => {
+        test<number[]>('test1', [], (testCase) => {
+        });
+    })
 });

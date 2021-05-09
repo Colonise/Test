@@ -1,20 +1,20 @@
-import type { Test } from './test';
-import type { TestCase } from './test-case';
-import type { TestSuite } from './test-suite';
+import type { TestGroup } from './test-group';
 
 export class TestRunner {
     public static current?: TestRunner;
 
     public readonly filePaths: string[];
-    public readonly testSuites: TestSuite[] = [];
-    public readonly tests: Test[] = [];
-    public readonly testCases: TestCase<unknown[]>[] = [];
+    public readonly testGroups: TestGroup[] = [];
 
     public constructor(filePaths: string[] = []) {
         this.filePaths = filePaths;
     }
 
     public async collect(): Promise<void> {
+        if (TestRunner.current !== undefined) {
+            throw new Error('TestRunner already exists.');
+        }
+
         TestRunner.current = this;
 
         const promises: Promise<unknown>[] = [];
@@ -25,6 +25,18 @@ export class TestRunner {
 
         await Promise.all(promises);
 
+        // eslint-disable-next-line require-atomic-updates
         TestRunner.current = undefined;
+    }
+
+    public async run(): Promise<void> {
+        for (const testGroup of this.testGroups) {
+            // eslint-disable-next-line no-await-in-loop
+            await testGroup.run();
+        }
+    }
+
+    public addTestGroup(testGroup: TestGroup): void {
+        this.testGroups.push(testGroup);
     }
 }
