@@ -1,4 +1,4 @@
-import { testGroup, test } from '../test';
+import { testGroup, testCase } from '../test';
 import { expect } from './expect';
 
 testGroup('expect-chain', () => {
@@ -101,11 +101,11 @@ testGroup('expect-chain', () => {
 
     // expect().and
 
-    test('equals', () => {
+    testCase('equals', () => {
         expect(1).equals(1);
     });
 
-    test('throws', () => {
+    testCase('throws', () => {
         expect(() => { throw 1; }).throws(1);
     });
 })

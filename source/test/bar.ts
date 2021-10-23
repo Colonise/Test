@@ -1,6 +1,7 @@
+import { ConsoleTestReporter } from './test-reporter';
 import { TestRunner } from './test-runner';
 
-const testRunner = new TestRunner([
+const testRunner = new TestRunner(new ConsoleTestReporter(), [
     './foo.test.ts'
 ]);
 

@@ -1,4 +1,9 @@
 import { toDisplayString } from '@colonise/utilities';
+import {
+    Test, TestCase
+} from '../test';
+
+export type UnknownAssertionResult = AssertionResult<unknown, unknown, unknown>;
 
 export class AssertionResult<TSubject, TActual, TExpected> {
     // eslint-disable-next-line max-params
@@ -48,6 +53,14 @@ export class AssertionResult<TSubject, TActual, TExpected> {
     public readonly result: boolean;
     public readonly message: string;
 
+    public get succeeded(): boolean {
+        return this.result;
+    }
+
+    public get failed(): boolean {
+        return !this.succeeded;
+    }
+
     // eslint-disable-next-line max-params
     public constructor(
         subject: TSubject,
@@ -63,5 +76,19 @@ export class AssertionResult<TSubject, TActual, TExpected> {
         this.reversed = reverse;
         this.result = reverse ? !result : Boolean(result);
         this.message = AssertionResult.parseAssertionMessage(String(message), subject, actual, expected, result, reverse);
+
+        if (TestCase.current !== undefined) {
+            TestCase.current.addAssertionResult(this);
+
+            return;
+        }
+
+        if (Test.current !== undefined) {
+            Test.current.addAssertionResult(this);
+
+            return;
+        }
+
+        throw new Error('Can not add AssertionResult. No TestRunner available.');
     }
 }

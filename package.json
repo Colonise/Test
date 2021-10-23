@@ -27,7 +27,8 @@
         "lint": "colonise-config lint",
         "test": "colonise-config test",
         "coverage": "colonise-config coverage",
-        "distribute": "colonise-config distribute"
+        "distribute": "colonise-config distribute",
+        "try": "ts-node source/test/bar.ts"
     },
     "devDependencies": {
         "@colonise/config": "latest"
