@@ -4,7 +4,7 @@ export abstract class TestReporter {
     public static current: TestReporter | undefined = undefined;
 
     public static emit(event: TestReporterEvent): void {
-        if (TestReporter.current) {
+        if (TestReporter.current !== undefined) {
             TestReporter.current.onEvent(event);
         }
     }

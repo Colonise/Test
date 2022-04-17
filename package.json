@@ -28,14 +28,15 @@
         "test": "colonise-config test",
         "coverage": "colonise-config coverage",
         "distribute": "colonise-config distribute",
-        "try": "ts-node source/test/bar.ts"
+        "try": "ts-node ./source/test/bar.ts"
     },
     "devDependencies": {
-        "@colonise/config": "latest"
+        "@colonise/config": "^3.16.0"
     },
     "dependencies": {
         "@colonise/assert": "latest",
         "@colonise/utilities": "latest",
+        "chalk": "^2.4.2",
         "tslib": "latest"
     }
 }

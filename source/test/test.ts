@@ -5,6 +5,7 @@ import type { UnknownAssertionResult } from '../assert';
 import {
     TestCaseEvent, TestCaseEventType, TestEvent, TestEventError, TestEventType, TestReporter
 } from './test-reporter';
+import { TestCaseEventError } from './test-reporter/events/test-case/test-case-event-error';
 
 export type TestRunnerFunction<TTestCaseValue = unknown> = ((testCase?: TTestCaseValue) => void | Promise<void>);
 
@@ -23,10 +24,22 @@ export class Test<TTestCaseValue = unknown> {
 
     public readonly assertionResults: UnknownAssertionResult[] = [];
 
+    public error?: TestEventError;
+
     public get totalTestCaseCount(): number {
         return this.testCases.length > 0
             ? this.testCases.length
             : 1;
+    }
+
+    public get erroredTestCaseCount(): number {
+        if (this.testCases.length > 0) {
+            return this.testCases.filter(testCase => testCase.errored).length;
+        }
+
+        return this.errored
+            ? 1
+            : 0;
     }
 
     public get succeededTestCaseCount(): number {
@@ -49,15 +62,19 @@ export class Test<TTestCaseValue = unknown> {
             : 0;
     }
 
+    public get errored(): boolean {
+        return this.error !== undefined;
+    }
+
     public get succeeded(): boolean {
-        return this.assertionResults.every(assertionResult => assertionResult.succeeded) && this.testCases.every(assertionResult => assertionResult.succeeded);
+        return !this.errored && this.assertionResults.length > 0 && this.assertionResults.every(assertionResult => assertionResult.succeeded) && this.testCases.every(assertionResult => assertionResult.succeeded);
     }
 
     public get failed(): boolean {
         return !this.succeeded;
     }
 
-    public constructor(
+    public constructor (
         label: string,
         testCases: TestCase<TTestCaseValue>[],
         runner: TestRunnerFunction<TTestCaseValue>
@@ -73,9 +90,9 @@ export class Test<TTestCaseValue = unknown> {
         }
 
         await this.withCurrentAsync(async () => {
-            try {
-                TestReporter.emit(new TestEvent(TestEventType.Start, <Test>this));
+            TestReporter.emit(new TestEvent(TestEventType.Start, <Test>this));
 
+            try {
                 if (this.testCases.length > 0) {
                     // eslint-disable-next-line guard-for-in, @typescript-eslint/no-for-in-array
                     for (const testCaseIndex in this.testCases) {
@@ -85,7 +102,14 @@ export class Test<TTestCaseValue = unknown> {
                         await testCase.withCurrentAsync(async () => {
                             TestReporter.emit(new TestCaseEvent(TestCaseEventType.Start, testCase));
 
-                            await this.runner(testCase.value);
+                            try {
+                                await this.runner(testCase.value);
+                            }
+                            catch (error: unknown) {
+                                testCase.error = new TestCaseEventError(testCase, 'Unexpected Error in Test Case', error);
+
+                                TestReporter.emit(testCase.error);
+                            }
 
                             TestReporter.emit(new TestCaseEvent(TestCaseEventType.End, testCase));
                         });
@@ -94,12 +118,14 @@ export class Test<TTestCaseValue = unknown> {
                 else {
                     await this.runner();
                 }
-
-                TestReporter.emit(new TestEvent(TestEventType.End, <Test>this));
             }
             catch (error: unknown) {
-                TestReporter.emit(new TestEventError(<Test>this, 'Unexpected Error in Test', error));
+                this.error = new TestEventError(<Test>this, 'Unexpected Error in Test', error);
+
+                TestReporter.emit(this.error);
             }
+
+            TestReporter.emit(new TestEvent(TestEventType.End, <Test>this));
         });
     }
 

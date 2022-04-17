@@ -15,8 +15,14 @@ export class TestGroup {
 
     public readonly testsAndTestGroup: (Test | TestGroup)[] = [];
 
+    public error?: TestGroupEventError;
+
     public get totalTestCaseCount(): number {
         return this.testsAndTestGroup.reduce((accumulator, testOrTestGroup) => accumulator + testOrTestGroup.totalTestCaseCount, 0);
+    }
+
+    public get erroredTestCaseCount(): number {
+        return this.testsAndTestGroup.reduce((accumulator, testOrTestGroup) => accumulator + testOrTestGroup.erroredTestCaseCount, 0);
     }
 
     public get succeededTestCaseCount(): number {
@@ -27,23 +33,28 @@ export class TestGroup {
         return this.testsAndTestGroup.reduce((accumulator, testOrTestGroup) => accumulator + testOrTestGroup.failedTestCaseCount, 0);
     }
 
+    public get errored(): boolean {
+        return this.error !== undefined;
+    }
+
     public get succeeded(): boolean {
-        return this.testsAndTestGroup.every(testOrTestGroup => testOrTestGroup.succeeded);
+        return !this.errored && this.testsAndTestGroup.every(testOrTestGroup => testOrTestGroup.succeeded);
     }
 
     public get failed(): boolean {
         return !this.succeeded;
     }
 
-    public constructor(label: string, runner: TestGroupRunnerFunction) {
+    public constructor (label: string, runner: TestGroupRunnerFunction) {
         this.label = label;
         this.runner = runner;
     }
 
     public async run(): Promise<void> {
         await this.withCurrentAsync(TestGroup.current, async () => {
+            TestReporter.emit(new TestGroupEvent(TestGroupEventType.Start, this));
+
             try {
-                TestReporter.emit(new TestGroupEvent(TestGroupEventType.Start, this));
 
                 await this.runner();
 
@@ -51,12 +62,14 @@ export class TestGroup {
                     // eslint-disable-next-line no-await-in-loop
                     await currentTestOrTestGroup.run();
                 }
-
-                TestReporter.emit(new TestGroupEvent(TestGroupEventType.End, this));
             }
             catch (error: unknown) {
-                TestReporter.emit(new TestGroupEventError(this, 'Unexpected Error in TestGroup', error));
+                this.error = new TestGroupEventError(this, 'Unexpected Error in TestGroup', error);
+
+                TestReporter.emit(this.error);
             }
+
+            TestReporter.emit(new TestGroupEvent(TestGroupEventType.End, this));
         });
     }
 

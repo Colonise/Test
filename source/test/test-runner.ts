@@ -15,6 +15,10 @@ export class TestRunner {
         return this.testsAndTestGroup.reduce((accumulator, testOrTestGroup) => accumulator + testOrTestGroup.totalTestCaseCount, 0);
     }
 
+    public get erroredTestCaseCount(): number {
+        return this.testsAndTestGroup.reduce((accumulator, testOrTestGroup) => accumulator + testOrTestGroup.erroredTestCaseCount, 0);
+    }
+
     public get succeededTestCaseCount(): number {
         return this.testsAndTestGroup.reduce((accumulator, testOrTestGroup) => accumulator + testOrTestGroup.succeededTestCaseCount, 0);
     }

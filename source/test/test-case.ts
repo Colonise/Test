@@ -1,4 +1,5 @@
 import type { UnknownAssertionResult } from '../assert';
+import { TestCaseEventError } from './test-reporter';
 
 export class TestCase<TValue = unknown> {
     public static current: TestCase | undefined = undefined;
@@ -8,15 +9,21 @@ export class TestCase<TValue = unknown> {
 
     public readonly assertionResults: UnknownAssertionResult[] = [];
 
+    public error?: TestCaseEventError;
+
+    public get errored(): boolean {
+        return this.error !== undefined;
+    }
+
     public get succeeded(): boolean {
-        return this.assertionResults.every(assertionResult => assertionResult.succeeded);
+        return !this.errored && this.assertionResults.length > 0 && this.assertionResults.every(assertionResult => assertionResult.succeeded);
     }
 
     public get failed(): boolean {
         return !this.succeeded;
     }
 
-    public constructor(label: string | undefined, value: TValue) {
+    public constructor (label: string | undefined, value: TValue) {
         this.label = label;
         this.value = value;
     }
