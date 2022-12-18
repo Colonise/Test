@@ -1,18 +1,55 @@
-import type { AssertionResult } from '@colonise/assert';
-import { createExpectIsChain } from './is/expect-is';
-import { createExpectNotChain } from './not/expect-not';
-import { createExpectToChain } from './to/expect-to';
-import { createExpectWillChain } from './will/expect-will';
-import type { ExpectIsChain } from './is/expect-is';
-import type { ExpectNotChain } from './not/expect-not';
-import type { ExpectToChain } from './to/expect-to';
-import type { ExpectWillChain } from './will/expect-will';
-import {
-    assertEqual,
-    assertStrictEqual
-} from '@colonise/assert';
+import { createIsChain, IsChain } from './is';
+import { assert, AssertionResult } from '../assert';
+import { createToChain, ToChain } from './to';
+import { createWillChain, WillChain } from './will';
+import { createReturnChain, ReturnChain } from './return';
+import { createThrowChain, ThrowChain } from './throw';
+import { createResolveChain, ResolveChain } from './resolve';
+import { createRejectChain, RejectChain } from './reject';
 
-export interface ExpectChain<TSubject> {
+export interface ExpectNotChain<TSubject> {
+    /**
+     * @example expect(subject).to
+     */
+    to: ToChain<TSubject>;
+}
+
+export interface ExpectChain<TSubject> extends ExpectNotChain<TSubject> {
+
+    /**
+     * @example expect(subject).is
+     */
+    is: IsChain<TSubject>;
+
+    /**
+     * @example expect(subject).not
+     */
+    not: ExpectNotChain<TSubject>;
+
+    /**
+     * @example expect(subject).will
+     */
+    will: WillChain<Promise<TSubject>>;
+
+    /**
+     * @example expect(subject).returns();
+     */
+    returns: ReturnChain<TSubject>;
+
+    /**
+     * @example expect(subject).throws();
+     */
+    throws: ThrowChain<TSubject>;
+
+    /**
+     * @example expect(actual).will.resolve
+     */
+    resolves: ResolveChain<TSubject>;
+
+    /**
+     * @example expect(actual).will.reject
+     */
+    rejects: RejectChain<TSubject>;
 
     /**
      * @example expect(subject).equals(expected);
@@ -27,62 +64,60 @@ export interface ExpectChain<TSubject> {
      * @param expected
      * @param strict
      */
-    equals<TExpected extends TSubject>(expected: TExpected, strict?: boolean): AssertionResult<TSubject, TSubject, TExpected>;
-
-    /**
-     * @example expect(subject).is
-     */
-    is: ExpectIsChain<TSubject>;
-
-    /**
-     * @example expect(subject).not
-     */
-    not: ExpectNotChain<TSubject>;
-
-    /**
-     * @example expect(subject).to
-     */
-    to: ExpectToChain<TSubject>;
-
-    /**
-     * @example expect(subject).will
-     */
-    will: ExpectWillChain<Promise<TSubject>>;
+    equals<TExpected extends TSubject>(expected: TExpected, strict: boolean): AssertionResult<TSubject, TSubject, TExpected>;
 }
 
-export function createExpectChain<TSubject>(subject: TSubject): ExpectChain<TSubject> {
-    return <ExpectChain<TSubject>>Object.defineProperties(
+export function createExpectChain<TSubject>(subject: TSubject, reverse: boolean = false): ExpectChain<TSubject> {
+    return Object.defineProperties(
         {},
         {
             // eslint-disable-next-line id-length
             is: {
-                get(): ExpectIsChain<TSubject> {
-                    return createExpectIsChain(subject);
+                get(): IsChain<TSubject> {
+                    return createIsChain(subject, reverse);
                 }
             },
             not: {
                 get(): ExpectNotChain<TSubject> {
-                    return createExpectNotChain(subject);
+                    return createExpectChain(subject, !reverse);
                 }
             },
             // eslint-disable-next-line id-length
             to: {
-                get(): ExpectToChain<TSubject> {
-                    return createExpectToChain(subject);
+                get(): ToChain<TSubject> {
+                    return createToChain(subject, reverse);
                 }
             },
             will: {
-                get(): ExpectWillChain<Promise<unknown>> {
-                    return createExpectWillChain(<Promise<unknown>><unknown>subject);
+                get(): WillChain<Promise<unknown>> {
+                    return createWillChain(<Promise<unknown>><unknown>subject, reverse);
+                }
+            },
+            returns: {
+                get(): ReturnChain<TSubject> {
+                    return createReturnChain(subject, reverse);
+                }
+            },
+            throws: {
+                get(): ThrowChain<TSubject> {
+                    return createThrowChain(subject, reverse);
+                }
+            },
+            resolves: {
+                get(): ResolveChain<TSubject> {
+                    return createResolveChain(subject, reverse);
+                }
+            },
+            rejects: {
+                get(): RejectChain<TSubject> {
+                    return createRejectChain(subject, reverse);
                 }
             },
             equals: {
                 value<TExpected extends TSubject>(expected: TExpected, strict: boolean = false): AssertionResult<TSubject, TSubject, TExpected> {
-                    if (strict) {
-                        return assertStrictEqual(subject, expected);
-                    }
-
-                    return assertEqual(subject, expected);
+                    return strict
+                        ? assert(subject).striclyEquals(expected, reverse)
+                        : assert(subject).equals(expected, reverse);
                 }
             }
         }

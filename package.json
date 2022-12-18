@@ -28,14 +28,15 @@
         "test": "colonise-config test",
         "coverage": "colonise-config coverage",
         "distribute": "colonise-config distribute",
-        "try": "ts-node ./source/test/bar.ts"
+        "console-test": "ts-node ./source/test/test-reporter/console-test.ts",
+        "json-test": "ts-node ./source/test/test-reporter/json-test.ts",
+        "tap-test": "ts-node ./source/test/test-reporter/tap-test.ts"
     },
     "devDependencies": {
         "@colonise/config": "^3.16.0"
     },
     "dependencies": {
-        "@colonise/assert": "latest",
-        "@colonise/utilities": "latest",
+        "@colonise/utilities": "6.6.1",
         "chalk": "^2.4.2",
         "tslib": "latest"
     }

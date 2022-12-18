@@ -2,6 +2,9 @@ import { toDisplayString } from '@colonise/utilities';
 import {
     Test, TestCase
 } from '../test';
+import { TestReporter } from '../test/test-reporter';
+import { AssertionResultEvent } from '../test/test-reporter/events/assertion-result/assertion-result-event';
+import { AssertionResultEventType } from '../test/test-reporter/events/assertion-result/assertion-result-event-type';
 
 export type UnknownAssertionResult = AssertionResult<unknown, unknown, unknown>;
 
@@ -62,7 +65,7 @@ export class AssertionResult<TSubject, TActual, TExpected> {
     }
 
     // eslint-disable-next-line max-params
-    public constructor(
+    public constructor (
         subject: TSubject,
         actual: TActual,
         expected: TExpected,
@@ -77,6 +80,8 @@ export class AssertionResult<TSubject, TActual, TExpected> {
         this.result = reverse ? !result : Boolean(result);
         this.message = AssertionResult.parseAssertionMessage(String(message), subject, actual, expected, result, reverse);
 
+        TestReporter.emit(new AssertionResultEvent(AssertionResultEventType.Create, this));
+
         if (TestCase.current !== undefined) {
             TestCase.current.addAssertionResult(this);
 
@@ -89,6 +94,6 @@ export class AssertionResult<TSubject, TActual, TExpected> {
             return;
         }
 
-        throw new Error('Can not add AssertionResult. No TestRunner available.');
+        throw new Error('Can not add AssertionResult. No Test or Test Case available.');
     }
 }

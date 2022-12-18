@@ -8,7 +8,7 @@ import {
 class Assert<TSubject> {
     public readonly subject: TSubject;
 
-    public constructor(subject: TSubject) {
+    public constructor (subject: TSubject) {
         this.subject = subject;
     }
 
@@ -127,10 +127,10 @@ class Assert<TSubject> {
         }
     }
 
-    public isAnInstanceOf<TExpected extends Constructor<TSubject>>(
+    public isAnInstanceOf<TExpected>(
         expected: TExpected
     ): AssertionResult<TSubject, TSubject, TExpected>;
-    public isAnInstanceOf<TExpected extends Constructor<TSubject>>(
+    public isAnInstanceOf<TExpected>(
         expected: TExpected,
         reverse: boolean
     ): AssertionResult<TSubject, TSubject, TExpected>;
@@ -141,7 +141,12 @@ class Assert<TSubject> {
     public isTrue(): AssertionResult<TSubject, TSubject, true>;
     public isTrue(reverse: boolean): AssertionResult<TSubject, TSubject, true>;
     public isTrue(reverse: boolean = false): AssertionResult<unknown, unknown, true> {
-        this.isTypeOf('boolean');
+        const isTypeOfResult = this.isTypeOf('boolean');
+
+        if (!isTypeOfResult.result) {
+            // @ts-expect-error
+            return isTypeOfResult;
+        }
 
         // eslint-disable-next-line @typescript-eslint/naming-convention
         const booleanSubject = <boolean><unknown>this.subject;
@@ -153,7 +158,12 @@ class Assert<TSubject> {
     public isFalse(): AssertionResult<TSubject, TSubject, false>;
     public isFalse(reverse: boolean): AssertionResult<TSubject, TSubject, false>;
     public isFalse(reverse: boolean = false): AssertionResult<unknown, unknown, false> {
-        this.isTypeOf('boolean');
+        const isTypeOfResult = this.isTypeOf('boolean');
+
+        if (!isTypeOfResult.result) {
+            // @ts-expect-error
+            return isTypeOfResult;
+        }
 
         // eslint-disable-next-line @typescript-eslint/naming-convention
         const booleanSubject = <boolean><unknown>this.subject;
@@ -195,18 +205,21 @@ class Assert<TSubject> {
         return this.custom(this.subject, undefined, this.subject === undefined, 'Expected %subject% to %reverse=not %be undefined.', reverse);
     }
 
-    public isIn<TExpected extends keyof TSubject>(expected: TExpected): AssertionResult<TSubject, TSubject, TExpected>;
-    public isIn<TExpected extends keyof TSubject>(
+    public isIn<TExpected extends object>(expected: TExpected): AssertionResult<TSubject, TSubject, TExpected>;
+    public isIn<TExpected extends object>(
         expected: TExpected,
         reverse: boolean
     ): AssertionResult<TSubject, TSubject, TExpected>;
     public isIn(expected: string, reverse: boolean = false): AssertionResult<unknown, unknown, unknown> {
-        this.isUndefined(true);
-        this.isNull(true);
+        const isDefinedResult = this.isDefined();
 
-        const objectSubject = <{ [key: string]: unknown; }><unknown>this.subject;
+        if (!isDefinedResult.result) {
+            return isDefinedResult;
+        }
 
-        return this.custom(this.subject, expected, expected in objectSubject, 'Expected %expected% to %reverse=not %be in %subject%.', reverse);
+        const objectExpected = <{ [key: string]: unknown; }><unknown>expected;
+
+        return this.custom(this.subject, expected, this.subject in objectExpected, 'Expected %expected% to %reverse=not %be in %subject%.', reverse);
     }
 
     public returns<TExpected>(): AssertionResult<TSubject, unknown, TExpected>;
@@ -281,7 +294,7 @@ class Assert<TSubject> {
     public async resolves<TExpected>(expected: TExpected): Promise<AssertionResult<TSubject, unknown, TExpected>>;
     public async resolves<TExpected>(expected: TExpected, reverse: boolean): Promise<AssertionResult<TSubject, unknown, TExpected>>;
     public async resolves(expected: unknown = anything, reverse: boolean = false): Promise<AssertionResult<unknown, unknown, unknown>> {
-        const isInResult = this.isIn(<keyof TSubject>'then');
+        const isInResult = new Assert('then').isIn(<object><unknown>this.subject);
 
         if (!isInResult.result) {
             return isInResult;
@@ -306,16 +319,16 @@ class Assert<TSubject> {
                 return this.custom(actual, expected, actual === expected, 'Expected %subject% to %reverse=not %resolve with %expected%%failed=, but it resolved with %actual%%.', reverse);
             }
             catch (actual: unknown) {
-                return this.custom(actual, expected, false, 'Expected %subject% to %reverse=not %resolve %expected%, but it rejected with %actual%.', reverse);
+                return this.custom(actual, expected, false, 'Expected %subject% to %reverse=not %resolve with %expected%, but it rejected with %actual%.', reverse);
             }
         }
     }
 
-    public async rejects<TExpected>(): Promise<AssertionResult<TSubject, unknown, TExpected>>;
+    public async rejects(): Promise<AssertionResult<TSubject, unknown, unknown>>;
     public async rejects<TExpected>(expected: TExpected): Promise<AssertionResult<TSubject, unknown, TExpected>>;
     public async rejects<TExpected>(expected: TExpected, reverse: boolean): Promise<AssertionResult<TSubject, unknown, TExpected>>;
     public async rejects(expected: unknown = anything, reverse: boolean = false): Promise<AssertionResult<unknown, unknown, unknown>> {
-        const isInResult = this.isIn(<keyof TSubject>'then');
+        const isInResult = new Assert('then').isIn(<object><unknown>this.subject);
 
         if (!isInResult.result) {
             return isInResult;

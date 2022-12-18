@@ -1,18 +1,12 @@
-import type { AChain } from './a';
-import type { AnChain } from './an';
-import type { AssertionResult } from '@colonise/assert';
-import { createAChain } from './a';
-import { createAnChain } from './an';
-import {
-    assertReturn, assertReturnAnything
-} from '@colonise/assert';
+import { AChain, AnChain, createAOrAnChain } from './a-or-an';
+import { assert, AssertionResult } from '../assert';
 
-export interface ReturnChain<TSubject extends () => unknown> {
+export interface ReturnChain<TSubject> {
 
     /**
      *
      */
-    // (): AssertionResult<TSubject, unknown, unknown>;
+    (): AssertionResult<TSubject, unknown, unknown>;
 
     /**
      *
@@ -22,7 +16,7 @@ export interface ReturnChain<TSubject extends () => unknown> {
     /**
      *
      */
-    // <TExpected>(expected: TExpected, strict?: boolean): AssertionResult<TSubject, unknown, TExpected>;
+    <TExpected>(expected: TExpected, strict: boolean): AssertionResult<TSubject, unknown, TExpected>;
 
     /**
      *
@@ -36,19 +30,25 @@ export interface ReturnChain<TSubject extends () => unknown> {
 
 }
 
-export function createReturnChain<TSubject extends () => unknown>(subject: TSubject, reverse: boolean = false): ReturnChain<TSubject> {
-    return Object.assign(
-        <TExpected>(
-            expected: TExpected = <TExpected><unknown>assertReturnAnything
-        ): AssertionResult<TSubject, unknown, TExpected> => assertReturn(subject, expected, reverse),
+export function createReturnChain<TSubject>(subject: TSubject, reverse: boolean = false): ReturnChain<TSubject> {
+    return Object.defineProperties(
+        function <TExpected extends TSubject>(
+            expected: TExpected
+        ): AssertionResult<TSubject, unknown, TExpected> {
+            return assert(subject).returns(expected, reverse);
+        },
         {
             // eslint-disable-next-line id-length
-            get a(): AChain<TSubject> {
-                return createAChain(subject, reverse);
+            a: {
+                get(): AChain<TSubject> {
+                    return createAOrAnChain(subject, reverse);
+                }
             },
             // eslint-disable-next-line id-length
-            get an(): AnChain<TSubject> {
-                return createAnChain(subject, reverse);
+            an: {
+                get(): AnChain<TSubject> {
+                    return createAOrAnChain(subject, reverse);
+                }
             }
         }
     );

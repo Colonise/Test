@@ -10,27 +10,31 @@ export type TestGroupRunnerFunction = () => void | Promise<void>;
 export class TestGroup {
     public static current?: TestGroup;
 
+    private static nextId: number = 0;
+
+    public readonly id: number = TestGroup.nextId++;
+
     public readonly label: string;
     public readonly runner: TestGroupRunnerFunction;
 
-    public readonly testsAndTestGroup: (Test | TestGroup)[] = [];
+    public readonly testsAndTestGroups: (Test | TestGroup)[] = [];
 
     public error?: TestGroupEventError;
 
     public get totalTestCaseCount(): number {
-        return this.testsAndTestGroup.reduce((accumulator, testOrTestGroup) => accumulator + testOrTestGroup.totalTestCaseCount, 0);
+        return this.testsAndTestGroups.reduce((accumulator, testOrTestGroup) => accumulator + testOrTestGroup.totalTestCaseCount, 0);
     }
 
     public get erroredTestCaseCount(): number {
-        return this.testsAndTestGroup.reduce((accumulator, testOrTestGroup) => accumulator + testOrTestGroup.erroredTestCaseCount, 0);
+        return this.testsAndTestGroups.reduce((accumulator, testOrTestGroup) => accumulator + testOrTestGroup.erroredTestCaseCount, 0);
     }
 
     public get succeededTestCaseCount(): number {
-        return this.testsAndTestGroup.reduce((accumulator, testOrTestGroup) => accumulator + testOrTestGroup.succeededTestCaseCount, 0);
+        return this.testsAndTestGroups.reduce((accumulator, testOrTestGroup) => accumulator + testOrTestGroup.succeededTestCaseCount, 0);
     }
 
     public get failedTestCaseCount(): number {
-        return this.testsAndTestGroup.reduce((accumulator, testOrTestGroup) => accumulator + testOrTestGroup.failedTestCaseCount, 0);
+        return this.testsAndTestGroups.reduce((accumulator, testOrTestGroup) => accumulator + testOrTestGroup.failedTestCaseCount, 0);
     }
 
     public get errored(): boolean {
@@ -38,7 +42,7 @@ export class TestGroup {
     }
 
     public get succeeded(): boolean {
-        return !this.errored && this.testsAndTestGroup.every(testOrTestGroup => testOrTestGroup.succeeded);
+        return !this.errored && this.testsAndTestGroups.every(testOrTestGroup => testOrTestGroup.succeeded);
     }
 
     public get failed(): boolean {
@@ -58,7 +62,7 @@ export class TestGroup {
 
                 await this.runner();
 
-                for (const currentTestOrTestGroup of this.testsAndTestGroup) {
+                for (const currentTestOrTestGroup of this.testsAndTestGroups) {
                     // eslint-disable-next-line no-await-in-loop
                     await currentTestOrTestGroup.run();
                 }
@@ -96,12 +100,12 @@ export class TestGroup {
 
     public addTest(test: Test): void;
     public addTest(newTest: Test): void {
-        this.testsAndTestGroup.push(newTest);
+        this.testsAndTestGroups.push(newTest);
     }
 
     public addTestGroup(testGroup: TestGroup): void;
     public addTestGroup(newTestGroup: TestGroup): void {
-        this.testsAndTestGroup.push(newTestGroup);
+        this.testsAndTestGroups.push(newTestGroup);
     }
 }
 

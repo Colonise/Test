@@ -1,1 +1,1 @@
-export const anything = Symbol('assertReject() anything');
+export const anything = Symbol('anything');

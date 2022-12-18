@@ -58,6 +58,8 @@ export class ConsoleTestReporter extends TestReporter {
                         this.writeLine(`Errored: ${event.testRunner.erroredTestCaseCount}/${event.testRunner.totalTestCaseCount}`);
                     }
 
+                    this.writeLine();
+
                     break;
                 }
 
@@ -210,12 +212,20 @@ export class ConsoleTestReporter extends TestReporter {
         }
     }
 
+    private parseMessage(message: string): string {
+        return message.replace(/\n/g, `\\n`);
+    }
+
+    private parseCallStack(message: string): string {
+        return message.replace(/\n/g, `\n${' '.repeat(this.depth * this.tabSize)}`);
+    }
+
     private write(message: string): void {
-        process.stdout.write(`${' '.repeat(this.depth * this.tabSize)}${message}`);
+        process.stdout.write(`${' '.repeat(this.depth * this.tabSize)}${this.parseMessage(message)}`);
     }
 
     private writeLine(message: string = ''): void {
-        process.stdout.write(`\n${' '.repeat(this.depth * this.tabSize)}${message}`);
+        process.stdout.write(`\n${' '.repeat(this.depth * this.tabSize)}${this.parseMessage(message)}`);
     }
 
     private rewriteLine(message: string): void {
@@ -226,7 +236,11 @@ export class ConsoleTestReporter extends TestReporter {
     }
 
     private error(message: string, error: unknown): void {
-        process.stderr.write(chalk.red(`\n${' '.repeat(this.depth * this.tabSize)}${message}: ${isError(error) ? error.message : toDisplayString(error)}`));
+        process.stderr.write(chalk.red(`\n${' '.repeat(this.depth * this.tabSize)}${this.parseMessage(message)}: ${isError(error) ? error.message : toDisplayString(error)}`));
+
+        if (isError(error) && error.stack != null) {
+            process.stderr.write(chalk.red(`\n${' '.repeat(this.depth * this.tabSize)}${this.parseCallStack(error.stack)}`));
+        }
     }
 
     private writeFailedAssertionResultMessages(assertionResults: UnknownAssertionResult[]): void {

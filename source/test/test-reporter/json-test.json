@@ -1,0 +1,429 @@
+{
+    "testsAndTestGroups": [
+        {
+            "id": 0,
+            "testsAndTestGroups": [
+                {
+                    "id": 4,
+                    "testsAndTestGroups": [
+                        {
+                            "id": 3,
+                            "assertionResults": [
+                                {
+                                    "subject": 1,
+                                    "actual": 1,
+                                    "expected": 1,
+                                    "reversed": false,
+                                    "result": true,
+                                    "message": "Expected 1 to equal 1."
+                                },
+                                {
+                                    "subject": "1",
+                                    "actual": "1",
+                                    "expected": "1",
+                                    "reversed": false,
+                                    "result": true,
+                                    "message": "Expected \"1\" to equal \"1\"."
+                                }
+                            ],
+                            "label": ".equals(expected)",
+                            "testCases": []
+                        }
+                    ],
+                    "label": "success"
+                },
+                {
+                    "id": 5,
+                    "testsAndTestGroups": [
+                        {
+                            "id": 4,
+                            "assertionResults": [
+                                {
+                                    "subject": 1,
+                                    "actual": 1,
+                                    "expected": 2,
+                                    "reversed": false,
+                                    "result": false,
+                                    "message": "Expected 1 to equal 2."
+                                },
+                                {
+                                    "subject": "1",
+                                    "actual": "1",
+                                    "expected": "2",
+                                    "reversed": false,
+                                    "result": false,
+                                    "message": "Expected \"1\" to equal \"2\"."
+                                },
+                                {
+                                    "subject": [],
+                                    "actual": {
+                                        "$ref": "$[\"testsAndTestGroups\"][0][\"testsAndTestGroups\"][1][\"testsAndTestGroups\"][0][\"assertionResults\"][2][\"subject\"]"
+                                    },
+                                    "expected": [],
+                                    "reversed": false,
+                                    "result": false,
+                                    "message": "Expected [] to equal []."
+                                }
+                            ],
+                            "label": ".equals(expected)",
+                            "testCases": []
+                        }
+                    ],
+                    "label": "fail"
+                }
+            ],
+            "label": "Assertions"
+        },
+        {
+            "id": 0,
+            "assertionResults": [
+                {
+                    "subject": 1,
+                    "actual": 1,
+                    "expected": "number",
+                    "reversed": false,
+                    "result": true,
+                    "message": "Expected 1 to be a number."
+                }
+            ],
+            "label": "Test1",
+            "testCases": []
+        },
+        {
+            "id": 1,
+            "assertionResults": [],
+            "label": "Test2",
+            "testCases": [
+                {
+                    "id": 0,
+                    "assertionResults": [
+                        {
+                            "subject": 1,
+                            "actual": 1,
+                            "expected": "number",
+                            "reversed": false,
+                            "result": true,
+                            "message": "Expected 1 to be a number."
+                        }
+                    ],
+                    "value": 1
+                },
+                {
+                    "id": 1,
+                    "assertionResults": [
+                        {
+                            "subject": 2,
+                            "actual": 2,
+                            "expected": "number",
+                            "reversed": false,
+                            "result": true,
+                            "message": "Expected 2 to be a number."
+                        }
+                    ],
+                    "value": 2
+                },
+                {
+                    "id": 2,
+                    "assertionResults": [
+                        {
+                            "subject": 3,
+                            "actual": 3,
+                            "expected": "number",
+                            "reversed": false,
+                            "result": true,
+                            "message": "Expected 3 to be a number."
+                        }
+                    ],
+                    "value": 3
+                }
+            ]
+        },
+        {
+            "id": 2,
+            "assertionResults": [],
+            "label": "Test3",
+            "testCases": [
+                {
+                    "id": 3,
+                    "assertionResults": [
+                        {
+                            "subject": 1,
+                            "actual": 1,
+                            "expected": "number",
+                            "reversed": false,
+                            "result": true,
+                            "message": "Expected 1 to be a number."
+                        }
+                    ],
+                    "label": "Test3-TestCase1",
+                    "value": 1
+                },
+                {
+                    "id": 4,
+                    "assertionResults": [
+                        {
+                            "subject": 2,
+                            "actual": 2,
+                            "expected": "number",
+                            "reversed": false,
+                            "result": true,
+                            "message": "Expected 2 to be a number."
+                        }
+                    ],
+                    "label": "Test3-TestCase2",
+                    "value": 2
+                },
+                {
+                    "id": 5,
+                    "assertionResults": [
+                        {
+                            "subject": 3,
+                            "actual": 3,
+                            "expected": "number",
+                            "reversed": false,
+                            "result": true,
+                            "message": "Expected 3 to be a number."
+                        }
+                    ],
+                    "label": "Test3-TestCase3",
+                    "value": 3
+                }
+            ]
+        },
+        {
+            "id": 1,
+            "testsAndTestGroups": [
+                {
+                    "id": 5,
+                    "assertionResults": [],
+                    "label": "TestGroup1-Test1",
+                    "testCases": [
+                        {
+                            "id": 6,
+                            "assertionResults": [
+                                {
+                                    "subject": 1,
+                                    "actual": 1,
+                                    "expected": "number",
+                                    "reversed": false,
+                                    "result": true,
+                                    "message": "Expected 1 to be a number."
+                                }
+                            ],
+                            "label": "TestGroup1-Test1-TestCase1",
+                            "value": 1
+                        },
+                        {
+                            "id": 7,
+                            "assertionResults": [
+                                {
+                                    "subject": 2,
+                                    "actual": 2,
+                                    "expected": "number",
+                                    "reversed": false,
+                                    "result": true,
+                                    "message": "Expected 2 to be a number."
+                                }
+                            ],
+                            "label": "TestGroup1-Test1-TestCase2",
+                            "value": 2
+                        },
+                        {
+                            "id": 8,
+                            "assertionResults": [
+                                {
+                                    "subject": 3,
+                                    "actual": 3,
+                                    "expected": "number",
+                                    "reversed": false,
+                                    "result": true,
+                                    "message": "Expected 3 to be a number."
+                                }
+                            ],
+                            "label": "TestGroup1-Test1-TestCase3",
+                            "value": 3
+                        }
+                    ]
+                }
+            ],
+            "label": "TestGroup1"
+        },
+        {
+            "id": 2,
+            "testsAndTestGroups": [
+                {
+                    "id": 6,
+                    "assertionResults": [],
+                    "label": "TestGroup2-Test1",
+                    "testCases": [
+                        {
+                            "id": 9,
+                            "assertionResults": [
+                                {
+                                    "subject": 1,
+                                    "actual": 1,
+                                    "expected": "number",
+                                    "reversed": false,
+                                    "result": true,
+                                    "message": "Expected 1 to be a number."
+                                }
+                            ],
+                            "label": "TestGroup2-Test1-TestCase1",
+                            "value": 1
+                        },
+                        {
+                            "id": 10,
+                            "assertionResults": [
+                                {
+                                    "subject": 2,
+                                    "actual": 2,
+                                    "expected": "number",
+                                    "reversed": false,
+                                    "result": true,
+                                    "message": "Expected 2 to be a number."
+                                }
+                            ],
+                            "label": "TestGroup2-Test1-TestCase2",
+                            "value": 2
+                        },
+                        {
+                            "id": 11,
+                            "assertionResults": [
+                                {
+                                    "subject": 3,
+                                    "actual": 3,
+                                    "expected": "number",
+                                    "reversed": false,
+                                    "result": true,
+                                    "message": "Expected 3 to be a number."
+                                }
+                            ],
+                            "label": "TestGroup2-Test1-TestCase3",
+                            "value": 3
+                        }
+                    ]
+                },
+                {
+                    "id": 6,
+                    "testsAndTestGroups": [
+                        {
+                            "id": 7,
+                            "assertionResults": [],
+                            "label": "TestGroup2-TestGroupA-Test1",
+                            "testCases": [
+                                {
+                                    "id": 12,
+                                    "assertionResults": [
+                                        {
+                                            "subject": 1,
+                                            "actual": 1,
+                                            "expected": "number",
+                                            "reversed": false,
+                                            "result": true,
+                                            "message": "Expected 1 to be a number."
+                                        }
+                                    ],
+                                    "label": "TestGroup2-TestGroupA-Test1-TestCase1",
+                                    "value": 1
+                                },
+                                {
+                                    "id": 13,
+                                    "assertionResults": [
+                                        {
+                                            "subject": 2,
+                                            "actual": 2,
+                                            "expected": "number",
+                                            "reversed": false,
+                                            "result": true,
+                                            "message": "Expected 2 to be a number."
+                                        }
+                                    ],
+                                    "label": "TestGroup2-TestGroupA-Test1-TestCase2",
+                                    "value": 2
+                                },
+                                {
+                                    "id": 14,
+                                    "assertionResults": [
+                                        {
+                                            "subject": 3,
+                                            "actual": 3,
+                                            "expected": "number",
+                                            "reversed": false,
+                                            "result": true,
+                                            "message": "Expected 3 to be a number."
+                                        }
+                                    ],
+                                    "label": "TestGroup2-TestGroupA-Test1-TestCase3",
+                                    "value": 3
+                                }
+                            ]
+                        }
+                    ],
+                    "label": "TestGroup2-TestGroupA"
+                }
+            ],
+            "label": "TestGroup2"
+        },
+        {
+            "id": 3,
+            "testsAndTestGroups": [
+                {
+                    "id": 7,
+                    "testsAndTestGroups": [],
+                    "label": "TestGroupError1",
+                    "error": {
+                        "type": "TestGroupError",
+                        "testGroup": {
+                            "$ref": "$[\"testsAndTestGroups\"][6][\"testsAndTestGroups\"][0]"
+                        },
+                        "message": "Unexpected Error in TestGroup",
+                        "error": {}
+                    }
+                },
+                {
+                    "id": 8,
+                    "assertionResults": [],
+                    "label": "TestError1",
+                    "testCases": [],
+                    "error": {
+                        "type": "TestError",
+                        "test": {
+                            "$ref": "$[\"testsAndTestGroups\"][6][\"testsAndTestGroups\"][1]"
+                        },
+                        "message": "Unexpected Error in Test",
+                        "error": {}
+                    }
+                },
+                {
+                    "id": 9,
+                    "assertionResults": [],
+                    "label": "TestError2",
+                    "testCases": [
+                        {
+                            "id": 15,
+                            "assertionResults": [],
+                            "label": "TestError2-TestCaseError1",
+                            "value": 1,
+                            "error": {
+                                "type": "TestCaseError",
+                                "testCase": {
+                                    "$ref": "$[\"testsAndTestGroups\"][6][\"testsAndTestGroups\"][2][\"testCases\"][0]"
+                                },
+                                "message": "Unexpected Error in Test Case",
+                                "error": {}
+                            }
+                        }
+                    ]
+                }
+            ],
+            "label": "Errors"
+        }
+    ],
+    "errors": [],
+    "testReporter": {
+        "filePath": "./source/test/test-reporter/json-test.json"
+    },
+    "filePaths": [
+        "./test-reporter/test.test.ts"
+    ]
+}

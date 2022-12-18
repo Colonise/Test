@@ -18,6 +18,10 @@ export type TestFunction<TTestCaseValue = unknown> = (
 export class Test<TTestCaseValue = unknown> {
     public static current: Test | undefined = undefined;
 
+    private static nextId: number = 0;
+
+    public readonly id: number = Test.nextId++;
+
     public readonly label: string;
     public readonly testCases: TestCase<TTestCaseValue>[];
     public readonly runner: TestRunnerFunction<TTestCaseValue>;

@@ -1,1 +1,1 @@
-export * from './expect';
+export { expect } from './expect';

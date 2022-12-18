@@ -4,6 +4,10 @@ import { TestCaseEventError } from './test-reporter';
 export class TestCase<TValue = unknown> {
     public static current: TestCase | undefined = undefined;
 
+    private static nextId: number = 0;
+
+    public readonly id: number = TestCase.nextId++;
+
     public readonly label: string | undefined;
     public readonly value: TValue;
 
