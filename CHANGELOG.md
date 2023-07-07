@@ -1,5 +1,12 @@
 Changelog
 
+## [1.1.1](https://github.com/Colonise/TEST/compare/v1.1.0...v1.1.1) (2023-07-07)
+
+
+### Bug Fixes
+
+* escape subtest label ([1a3fe22](https://github.com/Colonise/TEST/commit/1a3fe228465f1b3cfe9e8a02e38111a010aca885))
+
 # [1.1.0](https://github.com/Colonise/TEST/compare/v1.0.0...v1.1.0) (2023-07-07)
 
 
