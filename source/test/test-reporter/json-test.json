@@ -7,7 +7,7 @@
                     "id": 4,
                     "testsAndTestGroups": [
                         {
-                            "id": 3,
+                            "id": 4,
                             "assertionResults": [
                                 {
                                     "subject": 1,
@@ -36,7 +36,7 @@
                     "id": 5,
                     "testsAndTestGroups": [
                         {
-                            "id": 4,
+                            "id": 5,
                             "assertionResults": [
                                 {
                                     "subject": 1,
@@ -194,7 +194,7 @@
             "id": 1,
             "testsAndTestGroups": [
                 {
-                    "id": 5,
+                    "id": 6,
                     "assertionResults": [],
                     "label": "TestGroup1-Test1",
                     "testCases": [
@@ -252,7 +252,7 @@
             "id": 2,
             "testsAndTestGroups": [
                 {
-                    "id": 6,
+                    "id": 7,
                     "assertionResults": [],
                     "label": "TestGroup2-Test1",
                     "testCases": [
@@ -307,7 +307,7 @@
                     "id": 6,
                     "testsAndTestGroups": [
                         {
-                            "id": 7,
+                            "id": 8,
                             "assertionResults": [],
                             "label": "TestGroup2-TestGroupA-Test1",
                             "testCases": [
@@ -381,7 +381,7 @@
                     }
                 },
                 {
-                    "id": 8,
+                    "id": 9,
                     "assertionResults": [],
                     "label": "TestError1",
                     "testCases": [],
@@ -395,7 +395,7 @@
                     }
                 },
                 {
-                    "id": 9,
+                    "id": 10,
                     "assertionResults": [],
                     "label": "TestError2",
                     "testCases": [
@@ -417,6 +417,781 @@
                 }
             ],
             "label": "Errors"
+        },
+        {
+            "id": 3,
+            "assertionResults": [
+                {
+                    "subject": 1,
+                    "actual": 1,
+                    "expected": 1,
+                    "reversed": false,
+                    "result": true,
+                    "message": "Expected 1 to equal 1."
+                },
+                {
+                    "subject": 1,
+                    "actual": 1,
+                    "expected": 1,
+                    "reversed": false,
+                    "result": true,
+                    "message": "Expected 1 to stricly equal 1."
+                },
+                {
+                    "expected": "function",
+                    "reversed": false,
+                    "result": true,
+                    "message": "Expected () => {} to be a function."
+                },
+                {
+                    "actual": 1,
+                    "reversed": false,
+                    "result": true,
+                    "message": "Expected () => {} to return."
+                },
+                {
+                    "expected": "function",
+                    "reversed": false,
+                    "result": true,
+                    "message": "Expected () => {} to be a function."
+                },
+                {
+                    "actual": 1,
+                    "expected": 1,
+                    "reversed": false,
+                    "result": true,
+                    "message": "Expected () => {} to return 1."
+                },
+                {
+                    "expected": "function",
+                    "reversed": false,
+                    "result": true,
+                    "message": "Expected () => {} to be a function."
+                },
+                {
+                    "actual": 1,
+                    "reversed": false,
+                    "result": true,
+                    "message": "Expected () => {} to throw Symbol(anything)."
+                },
+                {
+                    "expected": "function",
+                    "reversed": false,
+                    "result": true,
+                    "message": "Expected () => {} to be a function."
+                },
+                {
+                    "actual": 1,
+                    "expected": 1,
+                    "reversed": false,
+                    "result": true,
+                    "message": "Expected () => {} to throw 1."
+                },
+                {
+                    "subject": "then",
+                    "actual": "then",
+                    "reversed": false,
+                    "result": true,
+                    "message": "Expected \"then\" to be defined."
+                },
+                {
+                    "subject": "then",
+                    "actual": "then",
+                    "expected": {},
+                    "reversed": false,
+                    "result": true,
+                    "message": "Expected [object Promise] to be in \"then\"."
+                },
+                {
+                    "subject": "then",
+                    "actual": "then",
+                    "reversed": false,
+                    "result": true,
+                    "message": "Expected \"then\" to be defined."
+                },
+                {
+                    "subject": "then",
+                    "actual": "then",
+                    "expected": {},
+                    "reversed": false,
+                    "result": true,
+                    "message": "Expected [object Promise] to be in \"then\"."
+                },
+                {
+                    "subject": "then",
+                    "actual": "then",
+                    "reversed": false,
+                    "result": true,
+                    "message": "Expected \"then\" to be defined."
+                },
+                {
+                    "subject": "then",
+                    "actual": "then",
+                    "expected": {},
+                    "reversed": false,
+                    "result": true,
+                    "message": "Expected [object Promise] to be in \"then\"."
+                },
+                {
+                    "subject": "then",
+                    "actual": "then",
+                    "reversed": false,
+                    "result": true,
+                    "message": "Expected \"then\" to be defined."
+                },
+                {
+                    "subject": "then",
+                    "actual": "then",
+                    "expected": {},
+                    "reversed": false,
+                    "result": true,
+                    "message": "Expected [object Promise] to be in \"then\"."
+                },
+                {
+                    "subject": 1,
+                    "actual": 1,
+                    "expected": 1,
+                    "reversed": false,
+                    "result": true,
+                    "message": "Expected 1 to equal 1."
+                },
+                {
+                    "subject": 1,
+                    "actual": 1,
+                    "expected": 1,
+                    "reversed": false,
+                    "result": true,
+                    "message": "Expected 1 to stricly equal 1."
+                },
+                {
+                    "subject": 1,
+                    "actual": 1,
+                    "reversed": false,
+                    "result": true,
+                    "message": "Expected 1 to be defined."
+                },
+                {
+                    "subject": null,
+                    "actual": null,
+                    "expected": null,
+                    "reversed": false,
+                    "result": true,
+                    "message": "Expected null to be null."
+                },
+                {
+                    "reversed": false,
+                    "result": true,
+                    "message": "Expected undefined to be undefined."
+                },
+                {
+                    "subject": 1,
+                    "actual": 1,
+                    "reversed": false,
+                    "result": true,
+                    "message": "Expected 1 to be truthy."
+                },
+                {
+                    "subject": 0,
+                    "actual": 0,
+                    "reversed": false,
+                    "result": true,
+                    "message": "Expected 0 to be falsey."
+                },
+                {
+                    "subject": 1,
+                    "actual": 1,
+                    "reversed": false,
+                    "result": true,
+                    "message": "Expected 1 to be defined."
+                },
+                {
+                    "subject": 1,
+                    "actual": 1,
+                    "expected": {
+                        "1": 1
+                    },
+                    "reversed": false,
+                    "result": true,
+                    "message": "Expected {\"1\":\"1\"} to be in 1."
+                },
+                {
+                    "subject": "2023-07-07T13:07:53.302Z",
+                    "actual": "2023-07-07T13:07:53.302Z",
+                    "reversed": false,
+                    "result": true,
+                    "message": "Expected 2023-07-07T13:07:53.302Z to be an instance of function Date() {}."
+                },
+                {
+                    "subject": 1,
+                    "actual": 1,
+                    "expected": "number",
+                    "reversed": false,
+                    "result": true,
+                    "message": "Expected 1 to be a number."
+                },
+                {
+                    "subject": [],
+                    "actual": {
+                        "$ref": "$[\"testsAndTestGroups\"][7][\"assertionResults\"][29][\"subject\"]"
+                    },
+                    "reversed": false,
+                    "result": true,
+                    "message": "Expected [] to be an instance of function Array() {}."
+                },
+                {
+                    "subject": [],
+                    "actual": {
+                        "$ref": "$[\"testsAndTestGroups\"][7][\"assertionResults\"][30][\"subject\"]"
+                    },
+                    "expected": "object",
+                    "reversed": false,
+                    "result": true,
+                    "message": "Expected [] to be an object."
+                },
+                {
+                    "subject": [],
+                    "actual": {
+                        "$ref": "$[\"testsAndTestGroups\"][7][\"assertionResults\"][31][\"subject\"]"
+                    },
+                    "reversed": false,
+                    "result": true,
+                    "message": "Expected [] to be an instance of function Array() {}."
+                },
+                {
+                    "subject": 2,
+                    "actual": 2,
+                    "expected": 1,
+                    "reversed": true,
+                    "result": true,
+                    "message": "Expected 2 to not equal 1."
+                },
+                {
+                    "subject": 1,
+                    "actual": 1,
+                    "reversed": true,
+                    "result": true,
+                    "message": "Expected 1 to not be an instance of function String() {}."
+                },
+                {
+                    "subject": 1,
+                    "actual": 1,
+                    "expected": "string",
+                    "reversed": true,
+                    "result": true,
+                    "message": "Expected 1 to not be a string."
+                },
+                {
+                    "subject": 1,
+                    "actual": 1,
+                    "reversed": true,
+                    "result": true,
+                    "message": "Expected 1 to not be an instance of function Array() {}."
+                },
+                {
+                    "subject": [],
+                    "actual": {
+                        "$ref": "$[\"testsAndTestGroups\"][7][\"assertionResults\"][36][\"subject\"]"
+                    },
+                    "reversed": true,
+                    "result": true,
+                    "message": "Expected [] to not be an instance of function Number() {}."
+                },
+                {
+                    "subject": 1,
+                    "actual": 1,
+                    "expected": 1,
+                    "reversed": false,
+                    "result": true,
+                    "message": "Expected 1 to equal 1."
+                },
+                {
+                    "expected": "function",
+                    "reversed": false,
+                    "result": true,
+                    "message": "Expected () => {} to be a function."
+                },
+                {
+                    "reversed": false,
+                    "result": true,
+                    "message": "Expected () => {} to return."
+                },
+                {
+                    "expected": "function",
+                    "reversed": false,
+                    "result": true,
+                    "message": "Expected () => {} to be a function."
+                },
+                {
+                    "actual": 1,
+                    "expected": 1,
+                    "reversed": false,
+                    "result": true,
+                    "message": "Expected () => {} to return 1."
+                },
+                {
+                    "reversed": false,
+                    "result": false,
+                    "message": "Expected () => {} to be an instance of function Number() {}."
+                },
+                {
+                    "reversed": false,
+                    "result": false,
+                    "message": "Expected () => {} to be an instance of function Array() {}."
+                },
+                {
+                    "reversed": false,
+                    "result": false,
+                    "message": "Expected () => {} to be an instance of function Array() {}."
+                },
+                {
+                    "expected": "function",
+                    "reversed": false,
+                    "result": true,
+                    "message": "Expected () => {} to be a function."
+                },
+                {
+                    "actual": 1,
+                    "reversed": false,
+                    "result": true,
+                    "message": "Expected () => {} to throw Symbol(anything)."
+                },
+                {
+                    "expected": "function",
+                    "reversed": false,
+                    "result": true,
+                    "message": "Expected () => {} to be a function."
+                },
+                {
+                    "actual": 1,
+                    "expected": 1,
+                    "reversed": false,
+                    "result": true,
+                    "message": "Expected () => {} to throw 1."
+                },
+                {
+                    "reversed": false,
+                    "result": false,
+                    "message": "Expected () => {} to be an instance of function Array() {}."
+                },
+                {
+                    "reversed": false,
+                    "result": false,
+                    "message": "Expected () => {} to be an instance of function Array() {}."
+                },
+                {
+                    "reversed": false,
+                    "result": false,
+                    "message": "Expected () => {} to be an instance of function Array() {}."
+                },
+                {
+                    "subject": 1,
+                    "actual": 1,
+                    "expected": 1,
+                    "reversed": false,
+                    "result": true,
+                    "message": "Expected 1 to equal 1."
+                },
+                {
+                    "subject": [],
+                    "actual": {
+                        "$ref": "$[\"testsAndTestGroups\"][7][\"assertionResults\"][53][\"subject\"]"
+                    },
+                    "reversed": false,
+                    "result": true,
+                    "message": "Expected [] to be an instance of function Array() {}."
+                },
+                {
+                    "subject": [],
+                    "actual": {
+                        "$ref": "$[\"testsAndTestGroups\"][7][\"assertionResults\"][54][\"subject\"]"
+                    },
+                    "reversed": false,
+                    "result": true,
+                    "message": "Expected [] to be an instance of function Array() {}."
+                },
+                {
+                    "subject": [],
+                    "actual": {
+                        "$ref": "$[\"testsAndTestGroups\"][7][\"assertionResults\"][55][\"subject\"]"
+                    },
+                    "reversed": false,
+                    "result": true,
+                    "message": "Expected [] to be an instance of function Array() {}."
+                },
+                {
+                    "subject": 1,
+                    "actual": 1,
+                    "expected": 2,
+                    "reversed": true,
+                    "result": true,
+                    "message": "Expected 1 to not equal 2."
+                },
+                {
+                    "expected": "function",
+                    "reversed": false,
+                    "result": true,
+                    "message": "Expected () => {} to be a function."
+                },
+                {
+                    "actual": 1,
+                    "reversed": true,
+                    "result": true,
+                    "message": "Expected () => {} to not return, but it threw 1."
+                },
+                {
+                    "expected": "function",
+                    "reversed": false,
+                    "result": true,
+                    "message": "Expected () => {} to be a function."
+                },
+                {
+                    "actual": 2,
+                    "expected": 1,
+                    "reversed": true,
+                    "result": true,
+                    "message": "Expected () => {} to not return 1, but it returned 2."
+                },
+                {
+                    "expected": "function",
+                    "reversed": false,
+                    "result": true,
+                    "message": "Expected () => {} to be a function."
+                },
+                {
+                    "actual": 1,
+                    "reversed": true,
+                    "result": true,
+                    "message": "Expected () => {} to not throw Symbol(anything), but it returned 1."
+                },
+                {
+                    "expected": "function",
+                    "reversed": false,
+                    "result": true,
+                    "message": "Expected () => {} to be a function."
+                },
+                {
+                    "actual": 2,
+                    "expected": 1,
+                    "reversed": true,
+                    "result": true,
+                    "message": "Expected () => {} to not throw 1, but it threw 2."
+                },
+                {
+                    "subject": 1,
+                    "actual": 1,
+                    "expected": 2,
+                    "reversed": true,
+                    "result": true,
+                    "message": "Expected 1 to not equal 2."
+                },
+                {
+                    "subject": [],
+                    "actual": {
+                        "$ref": "$[\"testsAndTestGroups\"][7][\"assertionResults\"][66][\"subject\"]"
+                    },
+                    "reversed": true,
+                    "result": true,
+                    "message": "Expected [] to not be an instance of function Number() {}."
+                },
+                {
+                    "subject": [],
+                    "actual": {
+                        "$ref": "$[\"testsAndTestGroups\"][7][\"assertionResults\"][67][\"subject\"]"
+                    },
+                    "reversed": true,
+                    "result": true,
+                    "message": "Expected [] to not be an instance of function Number() {}."
+                },
+                {
+                    "subject": [],
+                    "actual": {
+                        "$ref": "$[\"testsAndTestGroups\"][7][\"assertionResults\"][68][\"subject\"]"
+                    },
+                    "reversed": true,
+                    "result": true,
+                    "message": "Expected [] to not be an instance of function Number() {}."
+                },
+                {
+                    "subject": "then",
+                    "actual": "then",
+                    "reversed": false,
+                    "result": true,
+                    "message": "Expected \"then\" to be defined."
+                },
+                {
+                    "subject": "then",
+                    "actual": "then",
+                    "expected": {},
+                    "reversed": false,
+                    "result": true,
+                    "message": "Expected [object Promise] to be in \"then\"."
+                },
+                {
+                    "subject": "then",
+                    "actual": "then",
+                    "reversed": false,
+                    "result": true,
+                    "message": "Expected \"then\" to be defined."
+                },
+                {
+                    "subject": "then",
+                    "actual": "then",
+                    "expected": {},
+                    "reversed": false,
+                    "result": true,
+                    "message": "Expected [object Promise] to be in \"then\"."
+                },
+                {
+                    "subject": "then",
+                    "actual": "then",
+                    "reversed": false,
+                    "result": true,
+                    "message": "Expected \"then\" to be defined."
+                },
+                {
+                    "subject": "then",
+                    "actual": "then",
+                    "expected": {},
+                    "reversed": false,
+                    "result": true,
+                    "message": "Expected [object Promise] to be in \"then\"."
+                },
+                {
+                    "subject": "then",
+                    "actual": "then",
+                    "reversed": false,
+                    "result": true,
+                    "message": "Expected \"then\" to be defined."
+                },
+                {
+                    "subject": "then",
+                    "actual": "then",
+                    "expected": {},
+                    "reversed": false,
+                    "result": true,
+                    "message": "Expected [object Promise] to be in \"then\"."
+                },
+                {
+                    "subject": "then",
+                    "actual": "then",
+                    "reversed": false,
+                    "result": true,
+                    "message": "Expected \"then\" to be defined."
+                },
+                {
+                    "subject": "then",
+                    "actual": "then",
+                    "expected": {},
+                    "reversed": false,
+                    "result": true,
+                    "message": "Expected [object Promise] to be in \"then\"."
+                },
+                {
+                    "subject": "then",
+                    "actual": "then",
+                    "reversed": false,
+                    "result": true,
+                    "message": "Expected \"then\" to be defined."
+                },
+                {
+                    "subject": "then",
+                    "actual": "then",
+                    "expected": {},
+                    "reversed": false,
+                    "result": true,
+                    "message": "Expected [object Promise] to be in \"then\"."
+                },
+                {
+                    "subject": "then",
+                    "actual": "then",
+                    "reversed": false,
+                    "result": true,
+                    "message": "Expected \"then\" to be defined."
+                },
+                {
+                    "subject": "then",
+                    "actual": "then",
+                    "expected": {},
+                    "reversed": false,
+                    "result": true,
+                    "message": "Expected [object Promise] to be in \"then\"."
+                },
+                {
+                    "subject": "then",
+                    "actual": "then",
+                    "reversed": false,
+                    "result": true,
+                    "message": "Expected \"then\" to be defined."
+                },
+                {
+                    "subject": "then",
+                    "actual": "then",
+                    "expected": {},
+                    "reversed": false,
+                    "result": true,
+                    "message": "Expected [object Promise] to be in \"then\"."
+                },
+                {
+                    "expected": "function",
+                    "reversed": false,
+                    "result": true,
+                    "message": "Expected () => {} to be a function."
+                },
+                {
+                    "actual": 1,
+                    "reversed": true,
+                    "result": true,
+                    "message": "Expected () => {} to not return, but it threw 1."
+                },
+                {
+                    "expected": "function",
+                    "reversed": false,
+                    "result": true,
+                    "message": "Expected () => {} to be a function."
+                },
+                {
+                    "actual": 2,
+                    "expected": 1,
+                    "reversed": true,
+                    "result": true,
+                    "message": "Expected () => {} to not return 1, but it returned 2."
+                },
+                {
+                    "expected": "function",
+                    "reversed": false,
+                    "result": true,
+                    "message": "Expected () => {} to be a function."
+                },
+                {
+                    "actual": 1,
+                    "reversed": true,
+                    "result": true,
+                    "message": "Expected () => {} to not throw Symbol(anything), but it returned 1."
+                },
+                {
+                    "expected": "function",
+                    "reversed": false,
+                    "result": true,
+                    "message": "Expected () => {} to be a function."
+                },
+                {
+                    "actual": 2,
+                    "expected": 1,
+                    "reversed": true,
+                    "result": true,
+                    "message": "Expected () => {} to not throw 1, but it threw 2."
+                },
+                {
+                    "subject": {
+                        "$ref": "$[\"testsAndTestGroups\"][7][\"assertionResults\"][11][\"expected\"]"
+                    },
+                    "reversed": false,
+                    "result": true,
+                    "message": "Expected [object Promise] to resolve."
+                },
+                {
+                    "subject": {
+                        "$ref": "$[\"testsAndTestGroups\"][7][\"assertionResults\"][13][\"expected\"]"
+                    },
+                    "actual": 1,
+                    "expected": 1,
+                    "reversed": false,
+                    "result": true,
+                    "message": "Expected [object Promise] to resolve with 1."
+                },
+                {
+                    "subject": {
+                        "$ref": "$[\"testsAndTestGroups\"][7][\"assertionResults\"][15][\"expected\"]"
+                    },
+                    "reversed": false,
+                    "result": true,
+                    "message": "Expected [object Promise] to reject."
+                },
+                {
+                    "subject": {
+                        "$ref": "$[\"testsAndTestGroups\"][7][\"assertionResults\"][17][\"expected\"]"
+                    },
+                    "actual": 1,
+                    "expected": 1,
+                    "reversed": false,
+                    "result": true,
+                    "message": "Expected [object Promise] to reject with 1."
+                },
+                {
+                    "subject": {
+                        "$ref": "$[\"testsAndTestGroups\"][7][\"assertionResults\"][70][\"expected\"]"
+                    },
+                    "reversed": false,
+                    "result": true,
+                    "message": "Expected [object Promise] to resolve."
+                },
+                {
+                    "subject": {
+                        "$ref": "$[\"testsAndTestGroups\"][7][\"assertionResults\"][72][\"expected\"]"
+                    },
+                    "actual": 1,
+                    "expected": 1,
+                    "reversed": false,
+                    "result": true,
+                    "message": "Expected [object Promise] to resolve with 1."
+                },
+                {
+                    "subject": {
+                        "$ref": "$[\"testsAndTestGroups\"][7][\"assertionResults\"][74][\"expected\"]"
+                    },
+                    "reversed": false,
+                    "result": true,
+                    "message": "Expected [object Promise] to reject."
+                },
+                {
+                    "subject": {
+                        "$ref": "$[\"testsAndTestGroups\"][7][\"assertionResults\"][76][\"expected\"]"
+                    },
+                    "actual": 1,
+                    "expected": 1,
+                    "reversed": false,
+                    "result": true,
+                    "message": "Expected [object Promise] to reject with 1."
+                },
+                {
+                    "subject": {
+                        "$ref": "$[\"testsAndTestGroups\"][7][\"assertionResults\"][78][\"expected\"]"
+                    },
+                    "reversed": true,
+                    "result": true,
+                    "message": "Expected [object Promise] to not resolve, but it rejected with undefined."
+                },
+                {
+                    "subject": {
+                        "$ref": "$[\"testsAndTestGroups\"][7][\"assertionResults\"][80][\"expected\"]"
+                    },
+                    "actual": 1,
+                    "expected": 1,
+                    "reversed": true,
+                    "result": true,
+                    "message": "Expected [object Promise] to not resolve with 1, but it rejected with 1."
+                },
+                {
+                    "subject": {
+                        "$ref": "$[\"testsAndTestGroups\"][7][\"assertionResults\"][82][\"expected\"]"
+                    },
+                    "reversed": true,
+                    "result": true,
+                    "message": "Expected [object Promise] to not reject, but it resolved with undefined."
+                },
+                {
+                    "subject": {
+                        "$ref": "$[\"testsAndTestGroups\"][7][\"assertionResults\"][84][\"expected\"]"
+                    },
+                    "actual": 1,
+                    "expected": 1,
+                    "reversed": true,
+                    "result": true,
+                    "message": "Expected [object Promise] to not reject with 1, but it resolved with 1."
+                }
+            ],
+            "label": "expect-chain",
+            "testCases": []
         }
     ],
     "errors": [],

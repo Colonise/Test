@@ -71,14 +71,18 @@ export class Test<TTestCaseValue = unknown> {
     }
 
     public get succeeded(): boolean {
-        return !this.errored && this.assertionResults.length > 0 && this.assertionResults.every(assertionResult => assertionResult.succeeded) && this.testCases.every(assertionResult => assertionResult.succeeded);
+        if (this.testCases.length > 0) {
+            return !this.errored && this.testCases.every(assertionResult => assertionResult.succeeded);
+        }
+
+        return !this.errored && this.assertionResults.length > 0 && this.assertionResults.every(assertionResult => assertionResult.succeeded);
     }
 
     public get failed(): boolean {
         return !this.succeeded;
     }
 
-    public constructor (
+    public constructor(
         label: string,
         testCases: TestCase<TTestCaseValue>[],
         runner: TestRunnerFunction<TTestCaseValue>

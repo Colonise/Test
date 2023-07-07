@@ -15,10 +15,18 @@ import {
 import type {
     TestReporterEvent
 } from './events';
+import type { Test } from '../test';
+import { TestCase } from '../test-case';
+import type { TestGroup } from '../test-group';
 
 // https://testanything.org/tap-version-14-specification.html
 export class TAPTestReporter extends TestReporter {
-    private currentTestPointId = 1;
+    private readonly currentTestPointIds: number[] = [
+        1
+    ];
+    private depth: number = 0;
+    // eslint-disable-next-line @typescript-eslint/class-literal-property-style
+    private readonly tabSize: number = 4;
 
     // eslint-disable-next-line max-lines-per-function, max-statements, complexity
     public onEvent(event: TestReporterEvent): void {
@@ -39,8 +47,9 @@ export class TAPTestReporter extends TestReporter {
 
                 case TestRunnerEventType.End: {
                     // Must be run at end, since totalTestCaseCount is accumulated over time because everything is promises
-                    this.writeLine(`1..${event.testRunner.totalTestCaseCount}`);
+                    this.writePlan(event.testRunner.testsAndTestGroups.length);
                     this.writeLine();
+
                     break;
                 }
 
@@ -54,6 +63,10 @@ export class TAPTestReporter extends TestReporter {
         else if (event instanceof TestGroupEvent) {
             switch (event.type) {
                 case TestGroupEventType.Start: {
+                    this.writeSubtest(event.testGroup);
+
+                    this.incrementDepth();
+
                     break;
                 }
 
@@ -62,6 +75,14 @@ export class TAPTestReporter extends TestReporter {
                 }
 
                 case TestGroupEventType.End: {
+                    this.writePlan(event.testGroup.testsAndTestGroups.length);
+
+                    this.decrementDepth();
+
+                    this.writeTestPoint(event.testGroup);
+
+                    this.currentTestPointIds[this.depth] += 1;
+
                     break;
                 }
 
@@ -71,6 +92,12 @@ export class TAPTestReporter extends TestReporter {
         else if (event instanceof TestEvent) {
             switch (event.type) {
                 case TestEventType.Start: {
+                    if (event.test.testCases.length > 0) {
+                        this.writeSubtest(event.test);
+
+                        this.incrementDepth();
+                    }
+
                     break;
                 }
 
@@ -79,11 +106,15 @@ export class TAPTestReporter extends TestReporter {
                 }
 
                 case TestEventType.End: {
-                    if (event.test.testCases.length === 0) {
-                        this.writeLine(`${event.test.failed ? 'not ' : ''}ok ${this.currentTestPointId} - ${this.escapeHashesAndSlashes(event.test.label)}`)
+                    if (event.test.testCases.length > 0) {
+                        this.writePlan(event.test.totalTestCaseCount);
 
-                        this.currentTestPointId += 1;
+                        this.decrementDepth();
                     }
+
+                    this.writeTestPoint(event.test);
+
+                    this.currentTestPointIds[this.depth] += 1;
 
                     break;
                 }
@@ -102,11 +133,9 @@ export class TAPTestReporter extends TestReporter {
                 }
 
                 case TestCaseEventType.End: {
-                    const label = this.escapeHashesAndSlashes(event.testCase.label === undefined ? toDisplayString(event.testCase.value, 20) : `'${event.testCase.label}'`);
+                    this.writeTestPoint(event.testCase);
 
-                    this.writeLine(`${event.testCase.failed ? 'not ' : ''}ok ${this.currentTestPointId} - ${label}`)
-
-                    this.currentTestPointId += 1;
+                    this.currentTestPointIds[this.depth] += 1;
 
                     break;
                 }
@@ -117,10 +146,43 @@ export class TAPTestReporter extends TestReporter {
     }
 
     private writeLine(message: string = ''): void {
-        process.stdout.write(`\n${message}`);
+        process.stdout.write(`\n${' '.repeat(this.depth * this.tabSize)}${message}`);
+    }
+
+    private writeSubtest(testGroupOrTest: TestGroup | Test): void {
+        this.writeLine(`# Subtest: ${testGroupOrTest.label}`);
+    }
+
+    private writeTestPoint(testGroupOrTestOrTestCase: TestGroup | Test | TestCase): void {
+        let label: string;
+
+        if (testGroupOrTestOrTestCase instanceof TestCase) {
+            label = testGroupOrTestOrTestCase.label === undefined ? toDisplayString(testGroupOrTestOrTestCase.value, 20) : testGroupOrTestOrTestCase.label;
+        }
+        else {
+            label = testGroupOrTestOrTestCase.label;
+        }
+
+        this.writeLine(`${testGroupOrTestOrTestCase.failed ? 'not ' : ''}ok ${this.currentTestPointIds[this.depth]} - ${this.escapeHashesAndSlashes(label)}`);
+    }
+
+    private writePlan(count: number): void {
+        this.writeLine(`1..${count}`);
     }
 
     private escapeHashesAndSlashes(value: string): string {
         return value.replace('#', '\\#').replace('\\', '\\\\');
+    }
+
+    private incrementDepth(): void {
+        this.depth += 1;
+
+        this.currentTestPointIds.push(1);
+    }
+
+    private decrementDepth(): void {
+        this.depth -= 1;
+
+        this.currentTestPointIds.pop();
     }
 }
