@@ -150,7 +150,7 @@ export class TAPTestReporter extends TestReporter {
     }
 
     private writeSubtest(testGroupOrTest: TestGroup | Test): void {
-        this.writeLine(`# Subtest: ${testGroupOrTest.label}`);
+        this.writeLine(`# Subtest: ${this.escapeHashesAndSlashes(testGroupOrTest.label)}`);
     }
 
     private writeTestPoint(testGroupOrTestOrTestCase: TestGroup | Test | TestCase): void {
