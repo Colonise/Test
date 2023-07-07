@@ -38,8 +38,8 @@ Test is part of Colonise's Open Source Software, and is made with love by the Co
 [colonise-logo]: /documentation/assets/colonise256.png
 [colonise-url]: https://colonise.org/
 
-[build-badge]: https://img.shields.io/github/workflow/status/colonise/Test/Node.js%20CI
-[build-url]: https://github.com/Colonise/Test/actions?query=workflow%3A%22Node.js+CI%22
+[build-badge]: https://img.shields.io/github/actions/workflow/status/colonise/Test/nodejs-master.yml?branch=master
+[build-url]: https://github.com/Colonise/Test/actions/workflows/nodejs-master.yml?query=workflow%3A%22Node.js+CI%22
 
 [code-climate-coverage-badge]: https://img.shields.io/codeclimate/coverage/Colonise/Test.svg
 [code-climate-coverage-url]: https://codeclimate.com/github/Colonise/Test

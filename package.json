@@ -33,7 +33,7 @@
         "tap-test": "ts-node ./source/test/test-reporter/tap-test.ts"
     },
     "devDependencies": {
-        "@colonise/config": "^3.16.0"
+        "@colonise/config": "^3.17.1"
     },
     "dependencies": {
         "@colonise/utilities": "6.6.1",
