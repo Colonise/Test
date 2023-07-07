@@ -1,5 +1,12 @@
 Changelog
 
+# [1.1.0](https://github.com/Colonise/TEST/compare/v1.0.0...v1.1.0) (2023-07-07)
+
+
+### Features
+
+* add subtests to tap reporter ([d1ba23e](https://github.com/Colonise/TEST/commit/d1ba23ef860453be44a235700e1421de2474aa10))
+
 # [1.0.0](https://github.com/Colonise/TEST/compare/...v1.0.0) (2023-07-07)
 
 
