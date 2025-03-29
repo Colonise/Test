@@ -1,5 +1,17 @@
 Changelog
 
+# [1.2.0](https://github.com/Colonise/TEST/compare/v1.1.1...v1.2.0) (2025-03-29)
+
+
+### Bug Fixes
+
+* minor typing changes, add more expect chain tests ([69505a9](https://github.com/Colonise/TEST/commit/69505a940da562868d2333025a709f2db69529b0))
+
+
+### Features
+
+* add be.defined, be.null, be.truthy, be.falsey, and be.in ([459004a](https://github.com/Colonise/TEST/commit/459004a051959f73b2adfe99c83b82d7692d3e9a))
+
 ## [1.1.1](https://github.com/Colonise/TEST/compare/v1.1.0...v1.1.1) (2023-07-07)
 
 
