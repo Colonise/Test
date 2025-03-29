@@ -1,5 +1,6 @@
+import { assert } from '../assert';
+import type { AssertionResult } from '../assert';
 import type { Constructor } from '@colonise/utilities';
-import { assert, AssertionResult } from '../assert';
 
 export interface AChain<TSubject> {
 
@@ -65,14 +66,9 @@ export interface AnChain<TSubject> {
      */
     <TExpected extends string>(expected: TExpected): AssertionResult<TSubject, TSubject, TExpected>;
 
-    /**
-     * @example expect(actual).to.be.an.object()
-     */
-    // eslint-disable-next-line @typescript-eslint/ban-types
-    object(): AssertionResult<TSubject, TSubject, object>;
-
     instance: {
         of: {
+
             /**
              * @example expect(actual).to.be.an(expected)
              *
@@ -86,12 +82,19 @@ export interface AnChain<TSubject> {
              * @param expected
              */
             <TExpected extends string>(expected: TExpected): AssertionResult<TSubject, TSubject, TExpected>;
-        }
-    }
+        };
+    };
+
+    /**
+     * @example expect(actual).to.be.an.object()
+     */
+    // eslint-disable-next-line @typescript-eslint/ban-types
+    object(): AssertionResult<TSubject, TSubject, object>;
 }
 
+// eslint-disable-next-line max-lines-per-function
 export function createAOrAnChain<TSubject>(subject: TSubject, reverse: boolean = false): AChain<TSubject> & AnChain<TSubject> {
-    return Object.defineProperties(
+    return <AChain<TSubject> & AnChain<TSubject>>Object.defineProperties(
         // eslint-disable-next-line id-length, prefer-arrow-callback
         function a<TExpected extends Constructor<TSubject> | string>(
             expected: TExpected
@@ -99,9 +102,8 @@ export function createAOrAnChain<TSubject>(subject: TSubject, reverse: boolean =
             if (typeof expected === 'string') {
                 return <AssertionResult<TSubject, TSubject, TExpected>><unknown>assert(subject).isTypeOf(<'string'>expected, reverse);
             }
-            else {
-                return <AssertionResult<TSubject, TSubject, TExpected>>assert(subject).isAnInstanceOf(<Constructor<TSubject>>expected, reverse);
-            }
+
+            return <AssertionResult<TSubject, TSubject, TExpected>>assert(subject).isAnInstanceOf(<Constructor<TSubject>>expected, reverse);
         },
         {
             string: {
@@ -119,7 +121,7 @@ export function createAOrAnChain<TSubject>(subject: TSubject, reverse: boolean =
                     return assert(subject).isTypeOf('bigint', reverse);
                 }
             },
-            boolean: {
+            'boolean': {
                 value(): AssertionResult<TSubject, TSubject, boolean> {
                     return assert(subject).isTypeOf('boolean', reverse);
                 }
@@ -129,14 +131,14 @@ export function createAOrAnChain<TSubject>(subject: TSubject, reverse: boolean =
                     return assert(subject).isTypeOf('symbol', reverse);
                 }
             },
-            // eslint-disable-next-line @typescript-eslint/ban-types
-            function: {
+            'function': {
+                // eslint-disable-next-line @typescript-eslint/ban-types
                 value(): AssertionResult<TSubject, TSubject, Function> {
                     return assert(subject).isTypeOf('function', reverse);
                 }
             },
-            // eslint-disable-next-line @typescript-eslint/ban-types
             object: {
+                // eslint-disable-next-line @typescript-eslint/ban-types
                 value(): AssertionResult<TSubject, TSubject, object> {
                     return assert(subject).isTypeOf('object', reverse);
                 }
@@ -144,10 +146,11 @@ export function createAOrAnChain<TSubject>(subject: TSubject, reverse: boolean =
             instance: {
                 get() {
                     return {
-                        of: function (expected: Constructor) {
+                        // eslint-disable-next-line id-length
+                        of(expected: Constructor) {
                             return assert(subject).isAnInstanceOf(expected, reverse);
                         }
-                    }
+                    };
                 }
             }
         }

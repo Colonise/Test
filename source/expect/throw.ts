@@ -1,5 +1,9 @@
-import { AChain, AnChain, createAOrAnChain } from './a-or-an';
-import { assert, AssertionResult } from '../assert';
+import { assert } from '../assert';
+import type { AssertionResult } from '../assert';
+import { createAOrAnChain } from './a-or-an';
+import type {
+    AChain, AnChain
+} from './a-or-an';
 
 export interface ThrowChain<TSubject> {
 
@@ -31,8 +35,9 @@ export interface ThrowChain<TSubject> {
 }
 
 export function createThrowChain<TSubject>(subject: TSubject, reverse: boolean = false): ThrowChain<TSubject> {
-    return Object.defineProperties(
-        function <TExpected extends TSubject>(
+    return <ThrowChain<TSubject>>Object.defineProperties(
+        // eslint-disable-next-line prefer-arrow-callback
+        function throws<TExpected extends TSubject>(
             expected: TExpected
         ): AssertionResult<TSubject, unknown, TExpected> {
             return assert(subject).throws(expected, reverse);

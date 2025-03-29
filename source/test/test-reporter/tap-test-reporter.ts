@@ -1,4 +1,8 @@
+import type { Test } from '../test';
+import { TestCase } from '../test-case';
+import type { TestGroup } from '../test-group';
 import { TestReporter } from './test-reporter';
+import type { TestReporterEvent } from './events';
 import {
     toDisplayString
 } from '@colonise/utilities';
@@ -12,12 +16,6 @@ import {
     TestRunnerEvent,
     TestRunnerEventType
 } from './events';
-import type {
-    TestReporterEvent
-} from './events';
-import type { Test } from '../test';
-import { TestCase } from '../test-case';
-import type { TestGroup } from '../test-group';
 
 // https://testanything.org/tap-version-14-specification.html
 export class TAPTestReporter extends TestReporter {
@@ -157,6 +155,7 @@ export class TAPTestReporter extends TestReporter {
         let label: string;
 
         if (testGroupOrTestOrTestCase instanceof TestCase) {
+            // eslint-disable-next-line @typescript-eslint/no-magic-numbers
             label = testGroupOrTestOrTestCase.label === undefined ? toDisplayString(testGroupOrTestOrTestCase.value, 20) : testGroupOrTestOrTestCase.label;
         }
         else {

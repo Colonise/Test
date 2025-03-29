@@ -1,13 +1,22 @@
-import { createIsChain, IsChain } from './is';
-import { assert, AssertionResult } from '../assert';
-import { createToChain, ToChain } from './to';
-import { createWillChain, WillChain } from './will';
-import { createReturnChain, ReturnChain } from './return';
-import { createThrowChain, ThrowChain } from './throw';
-import { createResolveChain, ResolveChain } from './resolve';
-import { createRejectChain, RejectChain } from './reject';
+import { assert } from '../assert';
+import type { AssertionResult } from '../assert';
+import { createIsChain } from './is';
+import { createRejectChain } from './reject';
+import { createResolveChain } from './resolve';
+import { createReturnChain } from './return';
+import { createThrowChain } from './throw';
+import { createToChain } from './to';
+import { createWillChain } from './will';
+import type { IsChain } from './is';
+import type { RejectChain } from './reject';
+import type { ResolveChain } from './resolve';
+import type { ReturnChain } from './return';
+import type { ThrowChain } from './throw';
+import type { ToChain } from './to';
+import type { WillChain } from './will';
 
 export interface ExpectNotChain<TSubject> {
+
     /**
      * @example expect(subject).to
      */
@@ -41,11 +50,13 @@ export interface ExpectChain<TSubject> extends ExpectNotChain<TSubject> {
      */
     throws: ThrowChain<TSubject>;
 
+    // TODO: remove the .resolves(any) and .resolves(any, strict) interfaces
     /**
      * @example expect(actual).will.resolve
      */
     resolves: ResolveChain<TSubject>;
 
+    // TODO: remove the .rejects(any) and .rejects(any, strict) interfaces
     /**
      * @example expect(actual).will.reject
      */
@@ -67,8 +78,9 @@ export interface ExpectChain<TSubject> extends ExpectNotChain<TSubject> {
     equals<TExpected extends TSubject>(expected: TExpected, strict: boolean): AssertionResult<TSubject, TSubject, TExpected>;
 }
 
+// eslint-disable-next-line max-lines-per-function
 export function createExpectChain<TSubject>(subject: TSubject, reverse: boolean = false): ExpectChain<TSubject> {
-    return Object.defineProperties(
+    return <ExpectChain<TSubject>>Object.defineProperties(
         {},
         {
             // eslint-disable-next-line id-length
@@ -98,7 +110,7 @@ export function createExpectChain<TSubject>(subject: TSubject, reverse: boolean 
                     return createReturnChain(subject, reverse);
                 }
             },
-            throws: {
+            'throws': {
                 get(): ThrowChain<TSubject> {
                     return createThrowChain(subject, reverse);
                 }

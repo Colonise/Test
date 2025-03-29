@@ -1,7 +1,12 @@
-import { assert, AssertionResult } from '../assert';
-import { AChain, AnChain, createAOrAnChain } from './a-or-an';
+import { assert } from '../assert';
+import type { AssertionResult } from '../assert';
+import { createAOrAnChain } from './a-or-an';
+import type {
+    AChain, AnChain
+} from './a-or-an';
 
 export interface IsNotChain<TSubject> {
+
     /**
      * @example expect(actual).is(expected)
      *
@@ -55,20 +60,23 @@ export interface IsNotChain<TSubject> {
     /**
      * @example expect(actual).is.in(expected)
      */
+    // eslint-disable-next-line @typescript-eslint/ban-types
     in<TExpected extends object>(expected: TExpected): AssertionResult<TSubject, TSubject, TExpected>;
 }
 
 export interface IsChain<TSubject> extends IsNotChain<TSubject> {
+
     /**
      * @example expect(actual).is.not
      */
     not: IsNotChain<TSubject>;
 }
 
+// eslint-disable-next-line max-lines-per-function
 export function createIsChain<TSubject>(subject: TSubject, reverse: boolean = false): IsChain<TSubject> {
-    return Object.defineProperties(
+    return <IsChain<TSubject>>Object.defineProperties(
         // eslint-disable-next-line id-length, prefer-arrow-callback
-        function <TExpected extends TSubject>(
+        function is<TExpected extends TSubject>(
             expected: TExpected,
             strict: boolean = false
         ): AssertionResult<TSubject, TSubject, TExpected> {
@@ -77,11 +85,13 @@ export function createIsChain<TSubject>(subject: TSubject, reverse: boolean = fa
                 : assert(subject).equals(expected, reverse);
         },
         {
+            // eslint-disable-next-line id-length
             a: {
                 get(): AChain<TSubject> {
                     return createAOrAnChain(subject, reverse);
                 }
             },
+            // eslint-disable-next-line id-length
             an: {
                 get(): AnChain<TSubject> {
                     return createAOrAnChain(subject, reverse);
@@ -92,17 +102,12 @@ export function createIsChain<TSubject>(subject: TSubject, reverse: boolean = fa
                     return createIsChain(subject, !reverse);
                 }
             },
-            in: {
-                value<TExpected extends object>(expected: TExpected): AssertionResult<TSubject, TSubject, TExpected> {
-                    return assert(subject).isIn(expected, reverse);
-                }
-            },
             defined: {
                 value(): AssertionResult<TSubject, unknown, unknown> {
                     return assert(subject).isDefined(reverse);
                 }
             },
-            null: {
+            'null': {
                 value(): AssertionResult<TSubject, unknown, unknown> {
                     return assert(subject).isNull(reverse);
                 }
@@ -120,6 +125,12 @@ export function createIsChain<TSubject>(subject: TSubject, reverse: boolean = fa
             falsey: {
                 value(): AssertionResult<TSubject, unknown, unknown> {
                     return assert(subject).isFalsey(reverse);
+                }
+            },
+            'in': {
+                // eslint-disable-next-line @typescript-eslint/ban-types
+                value<TExpected extends object>(expected: TExpected): AssertionResult<TSubject, TSubject, TExpected> {
+                    return assert(subject).isIn(expected, reverse);
                 }
             }
         }

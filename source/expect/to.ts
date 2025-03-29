@@ -1,9 +1,15 @@
-import { assert, AssertionResult } from '../assert';
-import { BeChain, createBeChain } from './be';
-import { createRejectChain, RejectChain } from './reject';
-import { createResolveChain, ResolveChain } from './resolve';
-import { createReturnChain, ReturnChain } from './return';
-import { createThrowChain, ThrowChain } from './throw';
+import { assert } from '../assert';
+import type { AssertionResult } from '../assert';
+import type { BeChain } from './be';
+import { createBeChain } from './be';
+import { createRejectChain } from './reject';
+import { createResolveChain } from './resolve';
+import { createReturnChain } from './return';
+import { createThrowChain } from './throw';
+import type { RejectChain } from './reject';
+import type { ResolveChain } from './resolve';
+import type { ReturnChain } from './return';
+import type { ThrowChain } from './throw';
 
 export interface ToNotChain<TSubject> {
 
@@ -57,7 +63,7 @@ export interface ToChain<TSubject> extends ToNotChain<TSubject> {
 }
 
 export function createToChain<TSubject>(subject: TSubject, reverse: boolean = false): ToChain<TSubject> {
-    return Object.defineProperties(
+    return <ToChain<TSubject>>Object.defineProperties(
         {},
         {
             // eslint-disable-next-line id-length
@@ -71,12 +77,12 @@ export function createToChain<TSubject>(subject: TSubject, reverse: boolean = fa
                     return createToChain(subject, !reverse);
                 }
             },
-            return: {
+            'return': {
                 get(): ReturnChain<TSubject> {
                     return createReturnChain(subject, reverse);
                 }
             },
-            throw: {
+            'throw': {
                 get(): ThrowChain<TSubject> {
                     return createThrowChain(subject, reverse);
                 }

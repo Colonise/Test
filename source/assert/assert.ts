@@ -8,7 +8,7 @@ import {
 class Assert<TSubject> {
     public readonly subject: TSubject;
 
-    public constructor (subject: TSubject) {
+    public constructor(subject: TSubject) {
         this.subject = subject;
     }
 
@@ -144,8 +144,7 @@ class Assert<TSubject> {
         const isTypeOfResult = this.isTypeOf('boolean');
 
         if (!isTypeOfResult.result) {
-            // @ts-expect-error
-            return isTypeOfResult;
+            return <AssertionResult<unknown, unknown, true>>isTypeOfResult;
         }
 
         // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -161,8 +160,7 @@ class Assert<TSubject> {
         const isTypeOfResult = this.isTypeOf('boolean');
 
         if (!isTypeOfResult.result) {
-            // @ts-expect-error
-            return isTypeOfResult;
+            return <AssertionResult<unknown, unknown, false>>isTypeOfResult;
         }
 
         // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -205,7 +203,9 @@ class Assert<TSubject> {
         return this.custom(this.subject, undefined, this.subject === undefined, 'Expected %subject% to %reverse=not %be undefined.', reverse);
     }
 
+    // eslint-disable-next-line @typescript-eslint/ban-types
     public isIn<TExpected extends object>(expected: TExpected): AssertionResult<TSubject, TSubject, TExpected>;
+    // eslint-disable-next-line @typescript-eslint/ban-types
     public isIn<TExpected extends object>(
         expected: TExpected,
         reverse: boolean
@@ -294,6 +294,7 @@ class Assert<TSubject> {
     public async resolves<TExpected>(expected: TExpected): Promise<AssertionResult<TSubject, unknown, TExpected>>;
     public async resolves<TExpected>(expected: TExpected, reverse: boolean): Promise<AssertionResult<TSubject, unknown, TExpected>>;
     public async resolves(expected: unknown = anything, reverse: boolean = false): Promise<AssertionResult<unknown, unknown, unknown>> {
+        // eslint-disable-next-line @typescript-eslint/ban-types
         const isInResult = new Assert('then').isIn(<object><unknown>this.subject);
 
         if (!isInResult.result) {
@@ -328,6 +329,7 @@ class Assert<TSubject> {
     public async rejects<TExpected>(expected: TExpected): Promise<AssertionResult<TSubject, unknown, TExpected>>;
     public async rejects<TExpected>(expected: TExpected, reverse: boolean): Promise<AssertionResult<TSubject, unknown, TExpected>>;
     public async rejects(expected: unknown = anything, reverse: boolean = false): Promise<AssertionResult<unknown, unknown, unknown>> {
+        // eslint-disable-next-line @typescript-eslint/ban-types
         const isInResult = new Assert('then').isIn(<object><unknown>this.subject);
 
         if (!isInResult.result) {

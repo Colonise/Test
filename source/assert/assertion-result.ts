@@ -1,10 +1,10 @@
+import { AssertionResultEvent } from '../test/test-reporter/events/assertion-result/assertion-result-event';
+import { AssertionResultEventType } from '../test/test-reporter/events/assertion-result/assertion-result-event-type';
+import { TestReporter } from '../test/test-reporter';
 import { toDisplayString } from '@colonise/utilities';
 import {
     Test, TestCase
 } from '../test';
-import { TestReporter } from '../test/test-reporter';
-import { AssertionResultEvent } from '../test/test-reporter/events/assertion-result/assertion-result-event';
-import { AssertionResultEventType } from '../test/test-reporter/events/assertion-result/assertion-result-event-type';
 
 export type UnknownAssertionResult = AssertionResult<unknown, unknown, unknown>;
 
@@ -65,7 +65,7 @@ export class AssertionResult<TSubject, TActual, TExpected> {
     }
 
     // eslint-disable-next-line max-params
-    public constructor (
+    public constructor(
         subject: TSubject,
         actual: TActual,
         expected: TExpected,

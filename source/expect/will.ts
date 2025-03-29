@@ -1,5 +1,7 @@
-import { createRejectChain, RejectChain } from './reject';
-import { createResolveChain, ResolveChain } from './resolve';
+import { createRejectChain } from './reject';
+import { createResolveChain } from './resolve';
+import type { RejectChain } from './reject';
+import type { ResolveChain } from './resolve';
 
 export interface WillNotChain<TSubject extends Promise<unknown>> {
 
@@ -23,7 +25,7 @@ export interface WillChain<TSubject extends Promise<unknown>> extends WillNotCha
 }
 
 export function createWillChain<TSubject extends Promise<unknown>>(subject: TSubject, reverse: boolean = false): WillChain<TSubject> {
-    return Object.defineProperties(
+    return <WillChain<TSubject>>Object.defineProperties(
         {},
         {
             not: {
